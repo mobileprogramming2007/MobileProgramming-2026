@@ -3,34 +3,41 @@ package com.example.mobileprogramminglabs
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.mobileprogramminglabs.lab2.KotlinBasics
-import com.example.mobileprogramminglabs.ui.theme.MobileProgrammingLabsTheme
+import com.example.mobileprogramminglabs.lab2.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {}
+        task1A()
+        task1B()
+        task1C()
+        task1D()
+        task1E()
+        printPrimes1To100()
 
-        Log.d("Lab 2 - TASK 1", "-----------------------------")
-        val kotlinBasics = KotlinBasics()
+        task2A()
+        task2B()
+        task2C()
+        task2D()
+        task2E()
 
-        kotlinBasics.taskA()
-        kotlinBasics.taskB()
-        kotlinBasics.taskC()
-        kotlinBasics.taskD()
-        kotlinBasics.taskE()
-        kotlinBasics.printPrimes1To100()
+        task3()
 
-        Log.d("Lab 2 - TASK 1", "DONE")
+        val calc = Calculator()
+        Log.d("Task4", "Add: ${calc.add(10.0, 5.0)}")
+        Log.d("Task4", "Subtract: ${calc.subtract(10.0, 5.0)}")
+        Log.d("Task4", "Multiply: ${calc.multiply(10.0, 5.0)}")
+        Log.d("Task4", "Divide: ${calc.divide(10.0, 5.0)}")
+        Log.d("Task4", "Divide by 0: ${calc.divide(10.0, 0.0)}")
+
+        val calc2 = Calculator2()
+        Log.d("Task4", "Divide 10/3 rounded: ${calc2.divide(10.0, 3.0)}")
+
+        Log.d("Task4", "10 + 5 = ${calculate(10.0, 5.0, "+")}")
+        Log.d("Task4", "10 / 0 = ${calculate(10.0, 0.0, "/")}")
+        Log.d("Task4", "Invalid op = ${calculate(10.0, 5.0, "%")}")
+
+        val result = calc.add(12.3456, 7.8912)
+        Log.d("Task4", "Formatted result: ${result.formatResult()}")
     }
 }
