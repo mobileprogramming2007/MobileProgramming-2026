@@ -2,8 +2,7 @@ package com.example.mobileprogramminglabs.lab2
 
 import android.util.Log
 
-class KotlinBasics {
-    fun taskA() {
+    fun task1A() {
         val university = "IBU"
         val city = "Sarajevo"
         val year = 2026
@@ -20,7 +19,7 @@ class KotlinBasics {
         Log.d("KotlinBasics A", "Course=$course - Level=$level - IsActive=$isActive")
     }
 
-    fun taskB() {
+    fun task1B() {
         //Type inference (no explicit type)
         val name = "Mirza"
         val age = 27
@@ -33,7 +32,7 @@ class KotlinBasics {
         Log.d("KotlinBasics B", "Name: $name, Age: $age, GPA: $gpa, Active: $isStudent, Grade: $gradeLetter")
     }
 
-    fun taskC() {
+    fun task1C() {
         var nickname: String? = "Ajla"
 
         Log.d("KotlinBasics C", "Safe-call Length: ${nickname?.length}") //safe-call
@@ -58,13 +57,13 @@ class KotlinBasics {
         }
     }
 
-    fun taskD() {
+    fun task1D() {
         Log.d("KotlinBasics D", "95 -> ${calculateGrade(95)}")
         Log.d("KotlinBasics D", "72 -> ${calculateGrade(72)}")
         Log.d("KotlinBasics D", "40 -> ${calculateGrade(40)}")
     }
 
-    fun taskE() {
+    fun task1E() {
         for (i in 1..100) {
             val out = when {
                 i % 15 == 0 -> "FizzBuzz"
@@ -87,4 +86,4 @@ class KotlinBasics {
     fun printPrimes1To100() {
         for (i in 1..100) if (isPrime(i)) println(i)
     }
-}
+
