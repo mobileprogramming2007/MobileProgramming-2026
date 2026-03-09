@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MobileProgrammingLabs</string>
+    <string name="app_title">LifeRPG</string>
+    <string name="player_avatar">Player Avatar</string>
+    <string name="today_quests">Today\'s Quests</string>
+    <string name="achievements">Achievements</string>
+    <string name="quick_stats">Quick Stats</string>
 </resources>
