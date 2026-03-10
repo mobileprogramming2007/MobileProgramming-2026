@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.mobileprogramminglabs.presentation.ui.components.InfoSection
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.components.UserSectionCard
@@ -63,7 +62,8 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
             rows = listOf(
                 InfoRowData("Quests Completed", additionalInfo = "5"),
                 InfoRowData("Total XP", additionalInfo = "120"),
-                InfoRowData("Achievements", additionalInfo = "3")
+                InfoRowData("Achievements", additionalInfo = "3"),
+                InfoRowData("First Ques")
             )
         )
     }
