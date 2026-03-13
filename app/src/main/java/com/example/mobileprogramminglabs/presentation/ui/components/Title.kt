@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -14,13 +15,14 @@ import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 @Composable
 fun Title(
     title: String,
+    color: Color,
     modifier: Modifier = Modifier
 ) {
     Text(
         text = title,
         style = MaterialTheme.typography.headlineMedium,
         fontWeight = FontWeight.Bold,
-        color = RosyTaupe,
+        color = color,
         modifier = modifier.padding(dimensionResource(R.dimen.padding_medium))
     )
 }
@@ -29,6 +31,8 @@ fun Title(
 @Composable
 fun TitlePreview() {
     MaterialTheme {
-        Title(title = "LifeRPG")
+        Title(
+            color = RosyTaupe,
+            title = "LifeRPG")
     }
 }
