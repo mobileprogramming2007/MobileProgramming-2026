@@ -22,6 +22,7 @@ import com.example.mobileprogramminglabs.presentation.ui.components.UserSectionC
 import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
+import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 
 @Composable
 fun DashboardScreen(modifier: Modifier = Modifier) {
@@ -32,7 +33,10 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
             .padding(dimensionResource(R.dimen.padding_medium)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Title(title = stringResource(R.string.app_title))
+        Title(
+            color = RosyTaupe,
+            title = stringResource(R.string.app_title)
+        )
         UserSectionCard(
             levelNo = 3,
             achievementLevel = "Adventurer",
