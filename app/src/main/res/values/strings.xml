@@ -12,4 +12,23 @@
     <string name="profile_stats">Profile Stats</string>
     <string name="additional">Additional</string>
     <string name="habits">Habits</string>
+    <string name="quests">Quests</string>
+    <string name="delete_quest">Delete Quest</string>
+    <string name="add_quest">Add Quest</string>
+    <string name="quest_title">Quest Title</string>
+    <string name="xp_reward">XP Reward</string>
+    <string name="category">Category</string>
+    <string name="category_dropdown">Category Dropdown</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="mark_as_daily_quest">Mark as daily quest</string>
+    <string name="save_quest">Save Quest</string>
+    <string name="locked">Locked</string>
+    <string name="menu">Menu</string>
+    <string name="sort_quests">Sort quests</string>
+    <string name="delete_all">Delete all</string>
+    <string name="filter_by_category">Filter by category</string>
+    <string name="delete_quest_dialog_title">Delete Quest?</string>
+    <string name="delete_quest_dialog_message">Are you sure you want to remove this quest?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>
