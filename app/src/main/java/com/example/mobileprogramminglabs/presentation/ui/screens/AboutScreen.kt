@@ -25,12 +25,7 @@ import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 
 @Composable
-fun AboutScreen(
-    version: String,
-    description: String,
-    support: String,
-    modifier: Modifier = Modifier
-) {
+fun AboutScreen(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -57,20 +52,20 @@ fun AboutScreen(
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_small)))
             Text(
-                text = version,
+                text = "Version 1.0.0",
                 style = MaterialTheme.typography.bodyMedium,
                 color = AliceBlue,
                 fontStyle = FontStyle.Italic
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
             Text(
-                text = description,
+                text = "LifeRPG is a gamified productivity app that helps users complete quests, earn XP, and level up through daily progress.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = AliceBlue
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
             Text(
-                text = support,
+                text = "Support: support@liferpg.com",
                 style = MaterialTheme.typography.bodyMedium,
                 color = AliceBlue,
                 fontWeight = FontWeight.W800
@@ -83,10 +78,6 @@ fun AboutScreen(
 @Composable
 fun AboutScreenPreview() {
     MaterialTheme {
-        AboutScreen(
-            version = "Version 1.0.0",
-            description = "LifeRPG is a gamified productivity app that helps users complete quests, earn XP, and level up through daily progress.",
-            support = "Support: support@liferpg.com"
-        )
+        AboutScreen()
     }
 }
