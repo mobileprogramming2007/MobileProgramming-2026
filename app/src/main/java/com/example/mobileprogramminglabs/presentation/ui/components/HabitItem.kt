@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
@@ -58,6 +59,17 @@ fun HabitItem(
             text = streak,
             style = MaterialTheme.typography.bodyMedium,
             color = DeepTeal
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HabitItemPreview() {
+    MaterialTheme {
+        HabitItem(
+            title = "Quests Completed",
+            streak = "5"
         )
     }
 }
