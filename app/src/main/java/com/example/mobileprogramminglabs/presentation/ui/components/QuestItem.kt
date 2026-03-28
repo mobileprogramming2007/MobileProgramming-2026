@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
@@ -33,6 +34,8 @@ import com.example.mobileprogramminglabs.presentation.ui.util.QuestData
 @Composable
 fun QuestItem(
     quest: QuestData,
+    onDeleteClick: () -> Unit,
+    onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -49,7 +52,7 @@ fun QuestItem(
         ) {
             Checkbox(
                 checked = quest.isCompleted,
-                onCheckedChange = null,
+                onCheckedChange = onCheckedChange,
                 colors = CheckboxDefaults.colors(
                     checkedColor = Thistle,
                     uncheckedColor = Thistle,
@@ -71,7 +74,7 @@ fun QuestItem(
                 )
             }
         }
-        IconButton(onClick = {}) {
+        IconButton(onClick = onDeleteClick) {
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = stringResource(R.string.delete_quest),
@@ -79,4 +82,19 @@ fun QuestItem(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun QuestItemPreview() {
+    QuestItem(
+        quest = QuestData(
+            id = 1,
+            title = "Study Kotlin",
+            xp = 20,
+            isCompleted = false
+        ),
+        onDeleteClick = {},
+        onCheckedChange = {}
+    )
 }

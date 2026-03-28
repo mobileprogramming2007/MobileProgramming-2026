@@ -20,10 +20,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MobileProgrammingLabsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerpadding ->
-                    QuestScreen(
-                        modifier = Modifier.consumeWindowInsets(innerpadding),)
-                }
             }
         }
     }
@@ -33,6 +29,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     MobileProgrammingLabsTheme {
-        QuestScreen()
+        //QuestScreen()
     }
 }

@@ -34,7 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+    import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,25 +50,19 @@ import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.DeepTealDark
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
+import com.example.mobileprogramminglabs.presentation.ui.components.ShortcutCard
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
+import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
 
-data class ScreenShortcut(
-    val title: String,
-    val icon: ImageVector,
-    @DrawableRes val imageRes: Int
-)
 @Composable
-fun HomeShortcutScreen(
-    onScreenClick: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var searchQuery by remember { mutableStateOf("") }
+fun HomeShortcutScreen() {
+    var searchQuery by rememberSaveable { mutableStateOf("") }
 
     val shortcuts = listOf(
-        ScreenShortcut("Achievements", Icons.Default.Star, R.drawable.achievement),
-        ScreenShortcut("Add Quest", Icons.Default.Add, R.drawable.add_quests),
-        ScreenShortcut("Habits", Icons.Default.DateRange, R.drawable.habits),
-        ScreenShortcut("Quests", Icons.Default.Build, R.drawable.quests),
+        ScreenShortcutData("Achievements", Icons.Default.Star, R.drawable.achievement),
+        ScreenShortcutData("Add Quest", Icons.Default.Add, R.drawable.add_quests),
+        ScreenShortcutData("Habits", Icons.Default.DateRange, R.drawable.habits),
+        ScreenShortcutData("Quests", Icons.Default.Build, R.drawable.quests),
     )
 
     val filteredShortcuts = shortcuts.filter {
@@ -77,18 +71,32 @@ fun HomeShortcutScreen(
 
     val shortcutRows = filteredShortcuts.chunked(2)
 
+    HomeShortcutScreen(
+        searchQuery = searchQuery,
+        shortcutRows = shortcutRows,
+        onSearchQueryChange = { searchQuery = it },
+        onScreenClick = {}
+    )
+}
+
+@Composable
+private fun HomeShortcutScreen(
+    searchQuery: String,
+    shortcutRows: List<List<ScreenShortcutData>>,
+    onSearchQueryChange: (String) -> Unit,
+    onScreenClick: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         Title(title = "Home Dashboard", color = DeepTealDark)
-
         Spacer(modifier = Modifier.height(16.dp))
-
         OutlinedTextField(
             value = searchQuery,
-            onValueChange = { searchQuery = it },
+            onValueChange = onSearchQueryChange,
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             label = { Text("Search screens") },
@@ -107,9 +115,7 @@ fun HomeShortcutScreen(
                 cursorColor = DeepTeal
             )
         )
-
         Spacer(modifier = Modifier.height(16.dp))
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -139,85 +145,28 @@ fun HomeShortcutScreen(
     }
 }
 
-@Composable
-fun ShortcutCard(
-    shortcut: ScreenShortcut,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .aspectRatio(1f)
-            .clickable { onClick() },
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = androidx.compose.ui.graphics.Color.White
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                Image(
-                    painter = painterResource(id = shortcut.imageRes),
-                    contentDescription = shortcut.title,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(
-                            RoundedCornerShape(
-                                topStart = 20.dp,
-                                topEnd = 20.dp
-                            )
-                        ),
-                    contentScale = ContentScale.Crop
-                )
-                Box(
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .size(36.dp)
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(DeepTeal.copy(alpha = 0.9f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = shortcut.icon,
-                        contentDescription = shortcut.title,
-                        tint = AliceBlue,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
-                Text(
-                    text = shortcut.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = DeepTeal
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Open screen",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = RosyTaupe
-                )
-            }
-        }
-    }
-}
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeShortcutScreenPreview() {
+        var searchQuery by rememberSaveable { mutableStateOf("") }
+
+    val shortcuts = listOf(
+        ScreenShortcutData("Achievements", Icons.Default.Star, R.drawable.achievement),
+        ScreenShortcutData("Add Quest", Icons.Default.Add, R.drawable.add_quests),
+        ScreenShortcutData("Habits", Icons.Default.DateRange, R.drawable.habits),
+        ScreenShortcutData("Quests", Icons.Default.Build, R.drawable.quests),
+    )
+
+    val filteredShortcuts = shortcuts.filter {
+        it.title.contains(searchQuery, ignoreCase = true)
+    }
+
+    val shortcutRows = filteredShortcuts.chunked(2)
+
     HomeShortcutScreen(
-        onScreenClick = {}
+        searchQuery = searchQuery,
+        shortcutRows = shortcutRows,
+        onSearchQueryChange = { searchQuery = it },
+        onScreenClick = {},
     )
 }

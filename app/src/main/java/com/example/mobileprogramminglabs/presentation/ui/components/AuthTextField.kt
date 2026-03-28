@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTealDark
+import com.example.mobileprogramminglabs.presentation.theme.MobileProgrammingLabsTheme
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupeBeige
 
 @Composable
@@ -61,4 +63,18 @@ fun AuthTextField(
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun AuthTextFieldPrev() {
+    MobileProgrammingLabsTheme() {
+        AuthTextField(
+            value= "",
+            onValueChange={},
+            label="",
+            leadingIcon = null
+        )
+    }
+
 }
