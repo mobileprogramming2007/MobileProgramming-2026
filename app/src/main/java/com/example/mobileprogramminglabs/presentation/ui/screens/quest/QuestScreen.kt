@@ -12,6 +12,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -25,13 +29,43 @@ import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.util.QuestData
 
 @Composable
-fun QuestScreen(modifier: Modifier = Modifier) {
-    val quests = listOf(
-        QuestData(id = 1, title = "Study Kotlin", xp = 20, isCompleted = false),
-        QuestData(id = 2, title = "Workout", xp = 15, isCompleted = true),
-        QuestData(id = 3, title = "Drink Water", xp = 10, isCompleted = false),
-        QuestData(id = 4, title = "Read 10 Pages", xp = 25, isCompleted = false)
+fun QuestScreen() {
+    var quests by remember {
+        mutableStateOf(
+            listOf(
+                QuestData(1, "Study Kotlin", 20, false),
+                QuestData(2, "Workout", 15, true),
+                QuestData(3, "Drink Water", 10, false),
+                QuestData(4, "Read 10 Pages", 25, false)
+            )
+        )
+    }
+
+    QuestScreen(
+        quests = quests,
+        onCheckedChange = { questId, isChecked ->
+            quests.map { currentQuest ->
+                if (currentQuest.id == questId) {
+                    currentQuest.copy(isCompleted = isChecked)
+                } else {
+                    currentQuest
+                }
+            }
+        },
+        onDeleteClick = { questId ->
+            quests.filter { it.id != questId }
+        },
+        onAddQuestClick = {}
     )
+}
+@Composable
+private fun QuestScreen(
+    quests: List<QuestData>,
+    onCheckedChange: (Int, Boolean) -> Unit,
+    onDeleteClick: (Int) -> Unit,
+    onAddQuestClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -44,12 +78,20 @@ fun QuestScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
             quests.forEach { quest ->
-                QuestItem(quest = quest)
+                QuestItem(
+                    quest = quest,
+                    onCheckedChange = { isChecked ->
+                        onCheckedChange(quest.id, isChecked)
+                    },
+                    onDeleteClick = {
+                        onDeleteClick(quest.id)
+                    }
+                )
                 Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
             }
         }
         FloatingActionButton(
-            onClick = {},
+            onClick = onAddQuestClick,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(dimensionResource(R.dimen.padding_medium)),
@@ -68,6 +110,32 @@ fun QuestScreen(modifier: Modifier = Modifier) {
 @Composable
 fun QuestScreenPreview() {
     MaterialTheme {
-        QuestScreen()
+        var quests by remember {
+            mutableStateOf(
+                listOf(
+                    QuestData(1, "Study Kotlin", 20, false),
+                    QuestData(2, "Workout", 15, true),
+                    QuestData(3, "Drink Water", 10, false),
+                    QuestData(4, "Read 10 Pages", 25, false)
+                )
+            )
+        }
+
+        QuestScreen(
+            quests = quests,
+            onCheckedChange = { questId, isChecked ->
+                quests.map { currentQuest ->
+                    if (currentQuest.id == questId) {
+                        currentQuest.copy(isCompleted = isChecked)
+                    } else {
+                        currentQuest
+                    }
+                }
+            },
+            onDeleteClick = { questId ->
+                quests.filter { it.id != questId }
+            },
+            onAddQuestClick = {  },
+        )
     }
 }

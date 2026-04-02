@@ -1,8 +1,5 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.quest
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,44 +8,86 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
-import com.example.mobileprogramminglabs.presentation.theme.DustyOlive
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 import com.example.mobileprogramminglabs.presentation.theme.Thistle
+import com.example.mobileprogramminglabs.presentation.ui.components.CustomDropdownMenu
+import com.example.mobileprogramminglabs.presentation.ui.components.DifficultyOption
+import com.example.mobileprogramminglabs.presentation.ui.components.QuestSnackbarHost
+import com.example.mobileprogramminglabs.presentation.ui.components.RPGButton
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 
 @Composable
-fun AddQuestScreen(modifier: Modifier = Modifier) {
-    val categories = listOf("Study", "Health", "Fitness", "Reading")
+fun AddQuestScreen() {
+    var questTitle by rememberSaveable { mutableStateOf("") }
+    var xpReward by rememberSaveable { mutableStateOf("") }
+    var checkedDailyQuest by rememberSaveable { mutableStateOf(false) }
+    var selectedItem by rememberSaveable { mutableStateOf("Health") }
+    var selectedDifficulty by rememberSaveable { mutableStateOf("Easy") }
+    var expanded by remember { mutableStateOf(false) }
 
+    val enabled = questTitle.isNotBlank() &&
+            xpReward.isNotBlank() &&
+            selectedItem.isNotBlank() &&
+            selectedDifficulty.isNotBlank()
+
+    AddQuestScreen(
+        questTitle = questTitle,
+        xpReward = xpReward,
+        checkedDailyQuest = checkedDailyQuest,
+        enabled = enabled,
+        selectedItem = selectedItem,
+        selectedDifficulty = selectedDifficulty,
+        expanded = expanded,
+        onSaveButtonClick = { },
+        onDifficultyOptionClick = { selectedDifficulty = it },
+        onQuestTitleChange = { questTitle = it },
+        onXPRewardChange = { xpReward = it },
+        onCheckedDailyQuestChange = { checkedDailyQuest = it },
+        onExpandedChange = { expanded = it },
+        onSelectedItemChange = { selectedItem = it }
+    )
+}
+
+@Composable
+private fun AddQuestScreen(
+    questTitle: String,
+    xpReward: String,
+    checkedDailyQuest: Boolean,
+    enabled: Boolean,
+    selectedItem: String,
+    selectedDifficulty: String,
+    expanded: Boolean,
+    onSaveButtonClick: () -> Unit,
+    onDifficultyOptionClick: (String) -> Unit,
+    onQuestTitleChange: (String) -> Unit,
+    onXPRewardChange: (String) -> Unit,
+    onCheckedDailyQuestChange: (Boolean) -> Unit,
+    onExpandedChange: (Boolean) -> Unit,
+    onSelectedItemChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Scaffold(
         snackbarHost = {
             QuestSnackbarHost(snackbarHostState = SnackbarHostState())
@@ -66,16 +105,16 @@ fun AddQuestScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = questTitle,
+                onValueChange = onQuestTitleChange,
                 label = { Text(text = stringResource(R.string.quest_title)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = xpReward,
+                onValueChange = onXPRewardChange,
                 label = { Text(text = stringResource(R.string.xp_reward)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
@@ -89,8 +128,11 @@ fun AddQuestScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_small)))
             CustomDropdownMenu(
-                selectedItem = "Study",
-                items = categories
+                selectedItem = selectedItem,
+                items = listOf("Health", "Study", "Fitness", "Productivity"),
+                expanded = expanded,
+                onExpandedChange = onExpandedChange,
+                onItemSelected = onSelectedItemChange
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
             Text(
@@ -102,21 +144,24 @@ fun AddQuestScreen(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_small)))
             DifficultyOption(
                 label = "Easy",
-                selected = true
+                onDifficultyOptionClick = { onDifficultyOptionClick("Easy") },
+                selected = selectedDifficulty == "Easy"
             )
             DifficultyOption(
                 label = "Medium",
-                selected = false
+                onDifficultyOptionClick = { onDifficultyOptionClick("Medium") },
+                selected = selectedDifficulty == "Medium"
             )
             DifficultyOption(
                 label = "Hard",
-                selected = false
+                onDifficultyOptionClick = { onDifficultyOptionClick("Hard") },
+                selected = selectedDifficulty == "Hard"
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(
-                    checked = false,
-                    onCheckedChange = null,
+                    checked = checkedDailyQuest,
+                    onCheckedChange = onCheckedDailyQuestChange,
                     colors = CheckboxDefaults.colors(
                         checkedColor = Thistle,
                         uncheckedColor = RosyTaupe,
@@ -131,101 +176,46 @@ fun AddQuestScreen(modifier: Modifier = Modifier) {
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_large)))
-            Button(
-                onClick = {},
-                enabled = true,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = DeepTeal,
-                    disabledContainerColor = DustyOlive
-                )
-            ) {
-                Text(
-                    text = stringResource(R.string.save_quest),
-                    color = AliceBlue
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun CustomDropdownMenu(
-    selectedItem: String,
-    items: List<String>,
-    modifier: Modifier = Modifier
-) {
-    Box(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(dimensionResource(R.dimen.size_small)))
-                .background(color = AliceBlue)
-                .padding(dimensionResource(R.dimen.padding_medium)),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = selectedItem,
-                color = DeepTeal,
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Icon(
-                imageVector = Icons.Default.ArrowDropDown,
-                contentDescription = stringResource(R.string.category_dropdown),
-                tint = DeepTeal
+            RPGButton(
+                enabled = enabled,
+                onButtonClick = onSaveButtonClick
             )
         }
     }
-}
-
-@Composable
-fun DifficultyOption(
-    label: String,
-    selected: Boolean
-) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        RadioButton(
-            selected = selected,
-            onClick = null,
-            colors = RadioButtonDefaults.colors(
-                selectedColor = RosyTaupe,
-                unselectedColor = DustyOlive
-            )
-        )
-        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.width_small)))
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodyLarge,
-            color = DeepTeal
-        )
-    }
-}
-
-@Composable
-fun QuestSnackbarHost(
-    snackbarHostState: SnackbarHostState,
-    modifier: Modifier = Modifier
-) {
-    SnackbarHost(
-        hostState = snackbarHostState,
-        modifier = modifier,
-        snackbar = { snackbarData ->
-            Snackbar(
-                containerColor = DeepTeal,
-                contentColor = AliceBlue,
-                shape = RoundedCornerShape(dimensionResource(R.dimen.size_small))
-            ) {
-                Text(text = snackbarData.visuals.message)
-            }
-        }
-    )
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AddQuestScreenPreview() {
     MaterialTheme {
-        AddQuestScreen()
+
+        var questTitle by rememberSaveable { mutableStateOf("") }
+        var xpReward by rememberSaveable { mutableStateOf("") }
+        var checkedDailyQuest by rememberSaveable { mutableStateOf(false) }
+        var selectedItem by rememberSaveable { mutableStateOf("Health") }
+        var selectedDifficulty by rememberSaveable { mutableStateOf("Easy") }
+        var expanded by remember { mutableStateOf(false) }
+
+        val enabled = questTitle.isNotBlank() &&
+                xpReward.isNotBlank() &&
+                selectedItem.isNotBlank() &&
+                selectedDifficulty.isNotBlank()
+
+        AddQuestScreen(
+            questTitle = questTitle,
+            xpReward = xpReward,
+            checkedDailyQuest = checkedDailyQuest,
+            enabled = enabled,
+            selectedItem = selectedItem,
+            selectedDifficulty = selectedDifficulty,
+            expanded = expanded,
+            onSaveButtonClick = {},
+            onDifficultyOptionClick = { selectedDifficulty = it },
+            onQuestTitleChange = { questTitle = it },
+            onXPRewardChange = { xpReward = it },
+            onCheckedDailyQuestChange = { checkedDailyQuest = it },
+            onExpandedChange = { expanded = it },
+            onSelectedItemChange = { selectedItem = it },
+        )
     }
 }

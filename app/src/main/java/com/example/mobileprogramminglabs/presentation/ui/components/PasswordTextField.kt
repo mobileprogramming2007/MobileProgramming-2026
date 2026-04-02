@@ -1,5 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTealDark
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupeBeige
@@ -25,8 +27,10 @@ import com.example.mobileprogramminglabs.presentation.theme.RosyTaupeBeige
 @Composable
 fun PasswordTextField(
     value: String,
-    onValueChange: (String) -> Unit,
     label: String,
+    passwordVisible: Boolean,
+    onValueChange: (String) -> Unit,
+    onPasswordVisibilityChange: () -> Unit,
     modifier: Modifier = Modifier,
     isError: Boolean = false,
     errorMessage: String? = null,
@@ -48,12 +52,18 @@ fun PasswordTextField(
             },
             trailingIcon = {
                 Text(
-                    text = "Show",
+                    text = if (passwordVisible) "Hide" else "Show",
                     color = DeepTealDark,
-                    modifier = Modifier.padding(end = dimensionResource(R.dimen.padding_xsmedium))
+                    modifier = Modifier
+                        .clickable { onPasswordVisibilityChange() }
+                        .padding(end = dimensionResource(R.dimen.padding_xsmedium))
                 )
             },
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = if (passwordVisible) {
+                VisualTransformation.None
+            } else {
+                PasswordVisualTransformation()
+            },
             shape = RoundedCornerShape(dimensionResource(R.dimen.size_small)),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = DeepTealDark,
@@ -76,3 +86,4 @@ fun PasswordTextField(
         }
     }
 }
+
