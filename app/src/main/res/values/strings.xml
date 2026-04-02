@@ -31,4 +31,17 @@
     <string name="delete_quest_dialog_message">Are you sure you want to remove this quest?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Login to continue your journey</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_apple">Continue with Apple</string>
+    <string name="don_not_have_account">Don’t have an account?</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_acc_subtitle">Register and start building your journey</string>
+    <string name="full_name">Full Name</string>
+
 </resources>
