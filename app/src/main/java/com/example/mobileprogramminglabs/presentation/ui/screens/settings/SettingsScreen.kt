@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.screens
+package com.example.mobileprogramminglabs.presentation.ui.screens.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

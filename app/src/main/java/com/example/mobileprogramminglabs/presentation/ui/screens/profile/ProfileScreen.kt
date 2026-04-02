@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.screens
+package com.example.mobileprogramminglabs.presentation.ui.screens.profile
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,12 +17,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.ui.components.InfoSection
-import com.example.mobileprogramminglabs.presentation.ui.components.ProfileSection
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
+import com.example.mobileprogramminglabs.presentation.ui.screens.profile.components.ProfileSection
 import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun ProfileScreen(
+    name: String,
+    levelNo: String,
+    levelDescription: String,
+    profileStats: List<InfoRowData>,
+    additionalRows: List<InfoRowData>,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -34,24 +41,18 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             color = DeepTeal
         )
         ProfileSection(
-            name = "Ilma",
-            levelNo = "3",
-            levelDescription = "Building consistency every day"
+            name = name,
+            levelNo = levelNo,
+            levelDescription = levelDescription
         )
         InfoSection(
             title = stringResource(R.string.profile_stats),
-            rows = listOf(
-                InfoRowData("Quests Completed", additionalInfo = "5"),
-                InfoRowData("Total XP", additionalInfo = "120"),
-                InfoRowData("Achievements", additionalInfo = "3"),
-            )
+            rows = profileStats
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
         InfoSection(
             title = stringResource(R.string.additional),
-            rows = listOf(
-                InfoRowData("Edit Profile", imageVector = Icons.Default.Edit)
-            )
+            rows = additionalRows
         )
     }
 }
@@ -60,6 +61,18 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
 @Composable
 fun ProfileScreenPreview() {
     MaterialTheme {
-        ProfileScreen()
+        ProfileScreen(
+            name = "Ilma",
+            levelNo = "3",
+            levelDescription = "Building consistency every day",
+            profileStats = listOf(
+                InfoRowData("Quests Completed", additionalInfo = "5"),
+                InfoRowData("Total XP", additionalInfo = "120"),
+                InfoRowData("Achievements", additionalInfo = "Top")
+            ),
+            additionalRows = listOf(
+                InfoRowData("Edit Profile", imageVector = Icons.Default.Edit)
+            )
+        )
     }
 }

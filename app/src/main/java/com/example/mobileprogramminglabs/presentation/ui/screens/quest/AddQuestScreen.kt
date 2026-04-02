@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.screens
+package com.example.mobileprogramminglabs.presentation.ui.screens.quest
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

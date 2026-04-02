@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.screens
+package com.example.mobileprogramminglabs.presentation.ui.screens.about
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -52,20 +52,20 @@ fun AboutScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_small)))
             Text(
-                text = "Version 1.0.0",
+                text = stringResource(R.string.version),
                 style = MaterialTheme.typography.bodyMedium,
                 color = AliceBlue,
                 fontStyle = FontStyle.Italic
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
             Text(
-                text = "LifeRPG is a gamified productivity app that helps users complete quests, earn XP, and level up through daily progress.",
+                text = stringResource(R.string.about_app_description),
                 style = MaterialTheme.typography.bodyLarge,
                 color = AliceBlue
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
             Text(
-                text = "Support: support@liferpg.com",
+                text = stringResource(R.string.support),
                 style = MaterialTheme.typography.bodyMedium,
                 color = AliceBlue,
                 fontWeight = FontWeight.W800

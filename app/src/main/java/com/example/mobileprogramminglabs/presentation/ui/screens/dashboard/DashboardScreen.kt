@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.screens
+package com.example.mobileprogramminglabs.presentation.ui.screens.dashboard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -19,10 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.presentation.ui.components.InfoSection
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.components.UserSectionCard
-import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
+import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 
 @Composable
 fun DashboardScreen(modifier: Modifier = Modifier) {

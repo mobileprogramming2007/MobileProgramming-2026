@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.screens
+package com.example.mobileprogramminglabs.presentation.ui.screens.home
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -152,7 +153,7 @@ fun ShortcutCard(
             .clickable { onClick() },
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = androidx.compose.ui.graphics.Color.White
+            containerColor = Color.White
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {

@@ -1,11 +1,9 @@
-package com.example.mobileprogramminglabs.presentation.ui.components
+package com.example.mobileprogramminglabs.presentation.ui.screens.profile.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -35,7 +33,10 @@ fun ProfileSection(
     levelDescription: String,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier){
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
         Box(
             modifier = Modifier
                 .size(dimensionResource(R.dimen.avatar_large))

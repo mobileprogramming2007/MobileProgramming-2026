@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.screens
+package com.example.mobileprogramminglabs.presentation.ui.screens.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -41,7 +42,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             onValueChange = {},
             label = "Email",
             leadingIcon = {
-                androidx.compose.material3.Icon(
+                Icon(
                     imageVector = Icons.Default.Email,
                     contentDescription = null
                 )

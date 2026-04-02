@@ -15,9 +15,9 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
-import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 import kotlin.collections.forEach
 import com.example.mobileprogramminglabs.R
+import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 
 @Composable
 fun InfoSection(
