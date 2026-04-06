@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.components
+package com.example.mobileprogramminglabs.presentation.ui.screens.settings.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row

@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.components
+package com.example.mobileprogramminglabs.presentation.ui.screens.quest.components
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Snackbar

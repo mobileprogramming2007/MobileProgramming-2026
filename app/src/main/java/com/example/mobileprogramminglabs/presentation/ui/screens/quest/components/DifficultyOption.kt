@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.presentation.ui.components
+package com.example.mobileprogramminglabs.presentation.ui.screens.quest.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

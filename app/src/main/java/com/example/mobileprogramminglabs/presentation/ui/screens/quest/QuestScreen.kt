@@ -1,11 +1,13 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.quest
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -24,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
-import com.example.mobileprogramminglabs.presentation.ui.components.QuestItem
+import com.example.mobileprogramminglabs.presentation.ui.screens.quest.components.QuestItem
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.util.QuestData
 
@@ -44,7 +46,7 @@ fun QuestScreen() {
     QuestScreen(
         quests = quests,
         onCheckedChange = { questId, isChecked ->
-            quests.map { currentQuest ->
+            quests = quests.map { currentQuest ->
                 if (currentQuest.id == questId) {
                     currentQuest.copy(isCompleted = isChecked)
                 } else {
@@ -53,7 +55,7 @@ fun QuestScreen() {
             }
         },
         onDeleteClick = { questId ->
-            quests.filter { it.id != questId }
+            quests = quests.filter { it.id != questId }
         },
         onAddQuestClick = {}
     )
@@ -71,13 +73,27 @@ private fun QuestScreen(
             .fillMaxSize()
             .padding(dimensionResource(R.dimen.padding_medium))
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Title(
-                title = stringResource(R.string.quests),
-                color = DeepTeal
-            )
-            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
-            quests.forEach { quest ->
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.height_xmedium))
+        ) {
+            item {
+                Title(
+                    title = stringResource(R.string.quests),
+                    color = DeepTeal
+                )
+            }
+            item {
+                Spacer(
+                    modifier = Modifier.height(
+                        dimensionResource(R.dimen.padding_medium)
+                    )
+                )
+            }
+            items(
+                items = quests,
+                key = { quest -> quest.id }
+            ) { quest ->
                 QuestItem(
                     quest = quest,
                     onCheckedChange = { isChecked ->
@@ -87,7 +103,6 @@ private fun QuestScreen(
                         onDeleteClick(quest.id)
                     }
                 )
-                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
             }
         }
         FloatingActionButton(
@@ -116,7 +131,19 @@ fun QuestScreenPreview() {
                     QuestData(1, "Study Kotlin", 20, false),
                     QuestData(2, "Workout", 15, true),
                     QuestData(3, "Drink Water", 10, false),
-                    QuestData(4, "Read 10 Pages", 25, false)
+                    QuestData(4, "Read 10 Pages", 25, false),
+                    QuestData(5, "Study Kotlin", 20, false),
+                    QuestData(6, "Workout", 15, true),
+                    QuestData(7, "Drink Water", 10, false),
+                    QuestData(8, "Read 10 Pages", 25, false),
+                    QuestData(9, "Study Kotlin", 20, false),
+                    QuestData(10, "Workout", 15, true),
+                    QuestData(11, "Drink Water", 10, false),
+                    QuestData(12, "Read 10 Pages", 25, false),
+                    QuestData(13, "Study Kotlin", 20, false),
+                    QuestData(14, "Workout", 15, true),
+                    QuestData(15, "Drink Water", 10, false),
+                    QuestData(16, "Read 10 Pages", 25, false)
                 )
             )
         }
@@ -124,7 +151,7 @@ fun QuestScreenPreview() {
         QuestScreen(
             quests = quests,
             onCheckedChange = { questId, isChecked ->
-                quests.map { currentQuest ->
+                quests = quests.map { currentQuest ->
                     if (currentQuest.id == questId) {
                         currentQuest.copy(isCompleted = isChecked)
                     } else {
@@ -133,7 +160,7 @@ fun QuestScreenPreview() {
                 }
             },
             onDeleteClick = { questId ->
-                quests.filter { it.id != questId }
+                quests = quests.filter { it.id != questId }
             },
             onAddQuestClick = {  },
         )

@@ -32,9 +32,9 @@ import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 import com.example.mobileprogramminglabs.presentation.theme.Thistle
-import com.example.mobileprogramminglabs.presentation.ui.components.CustomDropdownMenu
-import com.example.mobileprogramminglabs.presentation.ui.components.DifficultyOption
-import com.example.mobileprogramminglabs.presentation.ui.components.QuestSnackbarHost
+import com.example.mobileprogramminglabs.presentation.ui.screens.quest.components.CustomDropdownMenu
+import com.example.mobileprogramminglabs.presentation.ui.screens.quest.components.DifficultyOption
+import com.example.mobileprogramminglabs.presentation.ui.screens.quest.components.QuestSnackbarHost
 import com.example.mobileprogramminglabs.presentation.ui.components.RPGButton
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 

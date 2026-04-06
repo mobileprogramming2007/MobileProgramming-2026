@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,14 +17,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.presentation.ui.components.InfoSection
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
-import com.example.mobileprogramminglabs.presentation.ui.components.UserSectionCard
+import com.example.mobileprogramminglabs.presentation.ui.screens.dashboard.components.UserSectionCard
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
+import com.example.mobileprogramminglabs.presentation.ui.screens.dashboard.components.HorizontalInfoSection
 import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 
 @Composable
-fun DashboardScreen(modifier: Modifier = Modifier) {
+fun DashboardScreen(
+    todayQuests: List<InfoRowData>,
+    achievements: List<InfoRowData>,
+    quickStats: List<InfoRowData>,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -46,29 +51,17 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
         InfoSection(
             title = stringResource(R.string.today_quests),
-            rows = listOf(
-                InfoRowData("Study Kotlin", imageVector = Icons.Default.Star),
-                InfoRowData("Workout", imageVector = Icons.Default.Star),
-                InfoRowData("Drink Water", imageVector = Icons.Default.Star)
-            )
+            rows = todayQuests
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
-        InfoSection(
+        HorizontalInfoSection(
             title = stringResource(R.string.achievements),
-            rows = listOf(
-                InfoRowData("First Quest", imageVector = Icons.Default.Face),
-                InfoRowData("3 Day Streak", imageVector = Icons.Default.Face)
-            )
+            rows = achievements
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
         InfoSection(
             title = stringResource(R.string.quick_stats),
-            rows = listOf(
-                InfoRowData("Quests Completed", additionalInfo = "5"),
-                InfoRowData("Total XP", additionalInfo = "120"),
-                InfoRowData("Achievements", additionalInfo = "3"),
-                InfoRowData("First Ques")
-            )
+            rows = quickStats
         )
     }
 }
@@ -77,6 +70,28 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
 @Composable
 fun DashboardScreenPreview() {
     MaterialTheme {
-        DashboardScreen()
+        DashboardScreen(
+            todayQuests = listOf(
+                InfoRowData("Study Kotlin"),
+                InfoRowData("Workout"),
+                InfoRowData("Drink Water"),
+                InfoRowData("Workout"),
+                InfoRowData("Drink Water"),
+                InfoRowData("Workout"),
+                InfoRowData("Drink Water")
+            ),
+            achievements = listOf(
+                InfoRowData("First Quest", imageVector = Icons.Default.Face),
+                InfoRowData("3 Day Streak", imageVector = Icons.Default.Face),
+                InfoRowData("7 Day Streak", imageVector = Icons.Default.Face)
+
+        ),
+            quickStats = listOf(
+                InfoRowData("Quests Completed", additionalInfo = "5"),
+                InfoRowData("Total XP", additionalInfo = "120"),
+                InfoRowData("Achievements", additionalInfo = "3"),
+                InfoRowData("First Ques")
+            )
+        )
     }
 }

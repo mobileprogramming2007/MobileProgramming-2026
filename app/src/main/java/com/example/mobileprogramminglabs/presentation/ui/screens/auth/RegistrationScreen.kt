@@ -22,15 +22,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.presentation.ui.components.AppleIcon
-import com.example.mobileprogramminglabs.presentation.ui.components.AuthDivider
-import com.example.mobileprogramminglabs.presentation.ui.components.AuthFooterText
-import com.example.mobileprogramminglabs.presentation.ui.components.AuthHeader
-import com.example.mobileprogramminglabs.presentation.ui.components.AuthPrimaryButton
-import com.example.mobileprogramminglabs.presentation.ui.components.AuthTextField
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthDivider
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthFooterText
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthHeader
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthPrimaryButton
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthTextField
 import com.example.mobileprogramminglabs.presentation.ui.components.GoogleIcon
-import com.example.mobileprogramminglabs.presentation.ui.components.PasswordTextField
-import com.example.mobileprogramminglabs.presentation.ui.components.SocialSignInButton
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.PasswordTextField
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.SocialSignInButton
 import com.example.mobileprogramminglabs.presentation.util.AuthValidators
 
 @Composable
@@ -82,7 +81,6 @@ fun RegistrationScreen() {
         },
         onRegisterClick = { },
         onGoogleClick = { },
-        onAppleClick = { },
         onLoginClick = { },
     )
 }
@@ -108,7 +106,6 @@ private fun RegistrationScreen(
     onConfirmPasswordVisibilityChange: () -> Unit,
     onRegisterClick: () -> Unit,
     onGoogleClick: () -> Unit,
-    onAppleClick: () -> Unit,
     onLoginClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -185,12 +182,6 @@ private fun RegistrationScreen(
             onClick = onGoogleClick,
             icon = { GoogleIcon() }
         )
-        Spacer(modifier = Modifier.height(12.dp))
-        SocialSignInButton(
-            text = "Sign up with Apple",
-            onClick = onAppleClick,
-            icon = { AppleIcon() }
-        )
         Spacer(modifier = Modifier.height(24.dp))
         AuthFooterText(
             normalText = "Already have an account? ",
@@ -250,7 +241,6 @@ fun RegistrationScreenPreview() {
         },
         onRegisterClick = { },
         onGoogleClick = { },
-        onAppleClick = { },
         onLoginClick = { },
     )
 }

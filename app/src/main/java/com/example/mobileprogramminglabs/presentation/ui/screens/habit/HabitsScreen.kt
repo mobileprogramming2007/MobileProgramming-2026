@@ -23,6 +23,7 @@ fun HabitsScreen(
     habits: List<HabitModel>,
     modifier: Modifier = Modifier
 ) {
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()

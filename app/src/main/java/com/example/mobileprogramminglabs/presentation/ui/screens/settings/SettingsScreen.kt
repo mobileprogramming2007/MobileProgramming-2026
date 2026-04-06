@@ -22,8 +22,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
-import com.example.mobileprogramminglabs.presentation.ui.components.SettingsInfoItem
-import com.example.mobileprogramminglabs.presentation.ui.components.SettingsSwitchItem
+import com.example.mobileprogramminglabs.presentation.ui.screens.settings.components.SettingsInfoItem
+import com.example.mobileprogramminglabs.presentation.ui.screens.settings.components.SettingsSwitchItem
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 
 @Composable
