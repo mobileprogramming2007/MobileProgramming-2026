@@ -29,11 +29,11 @@ import androidx.compose.ui.unit.dp
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
-import com.example.mobileprogramminglabs.presentation.ui.screens.ScreenShortcut
+import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
 
 @Composable
 fun ShortcutCard(
-    shortcut: ScreenShortcut,
+    shortcut: ScreenShortcutData,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
