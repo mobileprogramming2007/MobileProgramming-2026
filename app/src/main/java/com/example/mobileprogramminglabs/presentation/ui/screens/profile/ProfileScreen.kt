@@ -22,6 +22,25 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.profile.compone
 import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 
 @Composable
+fun ProfileScreen() {
+    ProfileScreen(
+        name = "Ajla Korman",
+        levelNo = "3",
+        levelDescription = "Adventurer",
+        profileStats = listOf(
+            InfoRowData("Completed Quests", additionalInfo = "12"),
+            InfoRowData("Current Streak", additionalInfo = "5 days"),
+            InfoRowData("Total XP", additionalInfo = "120")
+        ),
+        additionalRows = listOf(
+            InfoRowData("Favorite Habit", additionalInfo = "Drink Water"),
+            InfoRowData("Joined", additionalInfo = "March 2026"),
+            InfoRowData("Badges", additionalInfo = "4")
+        )
+    )
+}
+
+@Composable
 fun ProfileScreen(
     name: String,
     levelNo: String,

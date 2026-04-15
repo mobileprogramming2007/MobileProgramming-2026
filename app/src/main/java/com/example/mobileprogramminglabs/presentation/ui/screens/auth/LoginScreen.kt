@@ -32,7 +32,10 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components
 import com.example.mobileprogramminglabs.presentation.util.AuthValidators
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onLoginClick: () -> Unit,
+    onRegisterClick: () -> Unit
+) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
@@ -45,22 +48,22 @@ fun LoginScreen() {
             email.isNotBlank() &&
             password.isNotBlank()
 
-    LoginScreen(
-        email = email,
-        password = password,
-        passwordVisible = passwordVisible,
-        emailError = emailError,
-        passwordError = passwordError,
-        isLoginEnabled = isLoginEnabled,
-        onEmailChange = { email = it },
-        onPasswordChange = { password = it },
-        onPasswordVisibilityChange = {
-            passwordVisible = !passwordVisible
-        },
-        onLoginClick = { },
-        onRegisterClick = { },
-        onGoogleClick = { },
-    )
+        LoginScreen(
+            email = email,
+            password = password,
+            passwordVisible = passwordVisible,
+            emailError = emailError,
+            passwordError = passwordError,
+            isLoginEnabled = true,
+            onEmailChange = { email = it },
+            onPasswordChange = { password = it },
+            onPasswordVisibilityChange = {
+                passwordVisible = !passwordVisible
+            },
+            onLoginClick = onLoginClick,
+            onRegisterClick = onRegisterClick,
+            onGoogleClick = { },
+        )
 }
 @Composable
 private fun LoginScreen(
@@ -158,7 +161,7 @@ fun LoginScreenPreview() {
             passwordVisible = passwordVisible,
             emailError = emailError,
             passwordError = passwordError,
-            isLoginEnabled = isLoginEnabled,
+            isLoginEnabled = true,
             onEmailChange = { email = it },
             onPasswordChange = { password = it },
             onPasswordVisibilityChange = {

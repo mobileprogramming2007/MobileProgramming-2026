@@ -33,7 +33,10 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components
 import com.example.mobileprogramminglabs.presentation.util.AuthValidators
 
 @Composable
-fun RegistrationScreen() {
+fun RegistrationScreen(
+    onRegisterClick: () -> Unit,
+    onLoginClick: () -> Unit
+) {
     var fullName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -70,7 +73,7 @@ fun RegistrationScreen() {
         emailError = emailError,
         passwordError = passwordError,
         confirmPasswordError = confirmPasswordError,
-        isRegisterEnabled = isRegisterEnabled,
+        isRegisterEnabled = true,
         onFullNameChange = { fullName = it },
         onEmailChange = { email = it },
         onPasswordChange = { password = it },
@@ -79,9 +82,9 @@ fun RegistrationScreen() {
         onConfirmPasswordVisibilityChange = {
             confirmPasswordVisible = !confirmPasswordVisible
         },
-        onRegisterClick = { },
+        onRegisterClick = onRegisterClick,
         onGoogleClick = { },
-        onLoginClick = { },
+        onLoginClick = onLoginClick,
     )
 }
 
@@ -230,7 +233,7 @@ fun RegistrationScreenPreview() {
         emailError = emailError,
         passwordError = passwordError,
         confirmPasswordError = confirmPasswordError,
-        isRegisterEnabled = isRegisterEnabled,
+        isRegisterEnabled = true,
         onFullNameChange = { fullName = it },
         onEmailChange = { email = it },
         onPasswordChange = { password = it },

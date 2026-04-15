@@ -25,7 +25,41 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.dashboard.compo
 import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
 
 @Composable
-fun DashboardScreen(
+fun DashboardScreen() {
+    DashboardScreen(
+        levelNo = 3,
+        achievementLevel = "Adventurer",
+        currentXP = 120,
+        maxXP = 200,
+        todayQuests = listOf(
+            InfoRowData("Study Kotlin"),
+            InfoRowData("Workout"),
+            InfoRowData("Drink Water"),
+            InfoRowData("Workout"),
+            InfoRowData("Drink Water"),
+            InfoRowData("Workout"),
+            InfoRowData("Drink Water")
+        ),
+        achievements = listOf(
+            InfoRowData("First Quest", imageVector = Icons.Default.Face),
+            InfoRowData("3 Day Streak", imageVector = Icons.Default.Face),
+            InfoRowData("7 Day Streak", imageVector = Icons.Default.Face)
+        ),
+        quickStats = listOf(
+            InfoRowData("Quests Completed", additionalInfo = "5"),
+            InfoRowData("Total XP", additionalInfo = "120"),
+            InfoRowData("Achievements", additionalInfo = "3"),
+            InfoRowData("First Ques")
+        )
+    )
+}
+
+@Composable
+private fun DashboardScreen(
+    levelNo: Int,
+    achievementLevel: String,
+    currentXP: Int,
+    maxXP: Int,
     todayQuests: List<InfoRowData>,
     achievements: List<InfoRowData>,
     quickStats: List<InfoRowData>,
@@ -43,10 +77,10 @@ fun DashboardScreen(
             title = stringResource(R.string.app_title)
         )
         UserSectionCard(
-            levelNo = 3,
-            achievementLevel = "Adventurer",
-            currentXP = 120,
-            maxXP = 200
+            levelNo = levelNo,
+            achievementLevel = achievementLevel,
+            currentXP = currentXP,
+            maxXP = maxXP
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
         InfoSection(
@@ -71,6 +105,10 @@ fun DashboardScreen(
 fun DashboardScreenPreview() {
     MaterialTheme {
         DashboardScreen(
+            levelNo = 3,
+            achievementLevel = "Adventurer",
+            currentXP = 120,
+            maxXP = 200,
             todayQuests = listOf(
                 InfoRowData("Study Kotlin"),
                 InfoRowData("Workout"),
@@ -84,8 +122,7 @@ fun DashboardScreenPreview() {
                 InfoRowData("First Quest", imageVector = Icons.Default.Face),
                 InfoRowData("3 Day Streak", imageVector = Icons.Default.Face),
                 InfoRowData("7 Day Streak", imageVector = Icons.Default.Face)
-
-        ),
+            ),
             quickStats = listOf(
                 InfoRowData("Quests Completed", additionalInfo = "5"),
                 InfoRowData("Total XP", additionalInfo = "120"),

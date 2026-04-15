@@ -1,5 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.quest
 
+import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +42,10 @@ import com.example.mobileprogramminglabs.presentation.ui.components.RPGButton
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 
 @Composable
-fun AddQuestScreen() {
+fun AddQuestScreen(
+    source: String,
+    onSaveButtonClick: () -> Unit
+) {
     var questTitle by rememberSaveable { mutableStateOf("") }
     var xpReward by rememberSaveable { mutableStateOf("") }
     var checkedDailyQuest by rememberSaveable { mutableStateOf(false) }
@@ -53,6 +59,7 @@ fun AddQuestScreen() {
             selectedDifficulty.isNotBlank()
 
     AddQuestScreen(
+        source = source,
         questTitle = questTitle,
         xpReward = xpReward,
         checkedDailyQuest = checkedDailyQuest,
@@ -60,7 +67,7 @@ fun AddQuestScreen() {
         selectedItem = selectedItem,
         selectedDifficulty = selectedDifficulty,
         expanded = expanded,
-        onSaveButtonClick = { },
+        onSaveButtonClick = onSaveButtonClick,
         onDifficultyOptionClick = { selectedDifficulty = it },
         onQuestTitleChange = { questTitle = it },
         onXPRewardChange = { xpReward = it },
@@ -72,6 +79,7 @@ fun AddQuestScreen() {
 
 @Composable
 private fun AddQuestScreen(
+    source: String,
     questTitle: String,
     xpReward: String,
     checkedDailyQuest: Boolean,
@@ -98,9 +106,10 @@ private fun AddQuestScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(dimensionResource(R.dimen.padding_medium))
+                .verticalScroll(rememberScrollState())
         ) {
             Title(
-                title = stringResource(R.string.add_quest),
+                title = "Add Quest ($source)",
                 color = DeepTeal
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
@@ -202,6 +211,7 @@ fun AddQuestScreenPreview() {
                 selectedDifficulty.isNotBlank()
 
         AddQuestScreen(
+            source = "Level",
             questTitle = questTitle,
             xpReward = xpReward,
             checkedDailyQuest = checkedDailyQuest,

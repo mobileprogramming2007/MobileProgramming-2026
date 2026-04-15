@@ -46,4 +46,8 @@
     <string name="version">Version 1.0.0</string>
     <string name="about_app_description">LifeRPG is a gamified productivity app that helps users complete quests, earn XP, and level up through daily progress.</string>
     <string name="support">Support: support@liferpg.com</string>
+
+    <string name="home">Home</string>
+    <string name="quest">Quest</string>
+    <string name="habit">Habit</string>
 </resources>

@@ -28,10 +28,10 @@ import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.ui.screens.quest.components.QuestItem
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
-import com.example.mobileprogramminglabs.presentation.ui.util.QuestData
+import com.example.mobileprogramminglabs.presentation.ui.screens.quest.util.QuestData
 
 @Composable
-fun QuestScreen() {
+fun QuestScreen(onAddQuestClick: () -> Unit) {
     var quests by remember {
         mutableStateOf(
             listOf(
@@ -57,7 +57,7 @@ fun QuestScreen() {
         onDeleteClick = { questId ->
             quests = quests.filter { it.id != questId }
         },
-        onAddQuestClick = {}
+        onAddQuestClick = onAddQuestClick
     )
 }
 @Composable

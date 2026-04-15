@@ -38,7 +38,9 @@ import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
 
 @Composable
-fun HomeShortcutScreen() {
+fun HomeShortcutScreen(
+    onScreenClick: (String) -> Unit
+) {
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
     val shortcuts = listOf(
@@ -58,7 +60,7 @@ fun HomeShortcutScreen() {
         searchQuery = searchQuery,
         shortcuts  = filteredShortcuts,
         onSearchQueryChange = { searchQuery = it },
-        onScreenClick = {}
+        onScreenClick = onScreenClick
     )
 }
 
