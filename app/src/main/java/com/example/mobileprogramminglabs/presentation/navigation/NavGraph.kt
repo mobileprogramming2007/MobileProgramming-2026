@@ -33,8 +33,9 @@ fun NavGraph(
     ) {
         composable(route = Screen.Register.route) {
             RegistrationScreen(
-                onLoginClick = {navController.navigate(Screen.Login.route)},
-                onRegisterClick = {navController.navigate(Screen.HomeShortcut.route)}
+                viewModel = hiltViewModel(),
+                onNavigate = {navController.navigate(Screen.HomeShortcut.route)},
+                onLoginClick = {navController.navigate(Screen.Login.route)}
             )
         }
 

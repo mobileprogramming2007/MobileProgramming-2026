@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthDivider
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthFooterText
@@ -30,13 +32,21 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components
 import com.example.mobileprogramminglabs.presentation.ui.components.GoogleIcon
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.PasswordTextField
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.SocialSignInButton
+import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
+import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.util.AuthValidators
+import com.example.mobileprogramminglabs.presentation.view_model.auth.registration.RegistrationNavigationEvent
+import com.example.mobileprogramminglabs.presentation.view_model.auth.registration.RegistrationUiState
+import com.example.mobileprogramminglabs.presentation.view_model.auth.registration.RegistrationViewModel
 
 @Composable
 fun RegistrationScreen(
-    onRegisterClick: () -> Unit,
+    viewModel: RegistrationViewModel,
+    onNavigate: () -> Unit,
     onLoginClick: () -> Unit
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     var fullName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -53,39 +63,68 @@ fun RegistrationScreen(
         confirmPassword = confirmPassword
     )
 
-    val isRegisterEnabled = fullNameError == null &&
-            emailError == null &&
-            passwordError == null &&
-            confirmPasswordError == null &&
-            fullName.isNotBlank() &&
-            email.isNotBlank() &&
-            password.isNotBlank() &&
-            confirmPassword.isNotBlank()
+    val isRegisterEnabled =
+        fullNameError == null &&
+                emailError == null &&
+                passwordError == null &&
+                confirmPasswordError == null &&
+                fullName.isNotBlank() &&
+                email.isNotBlank() &&
+                password.isNotBlank() &&
+                confirmPassword.isNotBlank()
 
-    RegistrationScreen(
-        fullName = fullName,
-        email = email,
-        password = password,
-        confirmPassword = confirmPassword,
-        passwordVisible = passwordVisible,
-        confirmPasswordVisible = confirmPasswordVisible,
-        fullNameError = fullNameError,
-        emailError = emailError,
-        passwordError = passwordError,
-        confirmPasswordError = confirmPasswordError,
-        isRegisterEnabled = true,
-        onFullNameChange = { fullName = it },
-        onEmailChange = { email = it },
-        onPasswordChange = { password = it },
-        onConfirmPasswordChange = { confirmPassword = it },
-        onPasswordVisibilityChange = { passwordVisible = !passwordVisible },
-        onConfirmPasswordVisibilityChange = {
-            confirmPasswordVisible = !confirmPasswordVisible
-        },
-        onRegisterClick = onRegisterClick,
-        onGoogleClick = { },
-        onLoginClick = onLoginClick,
-    )
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            when (event) {
+                RegistrationNavigationEvent.Navigate -> onNavigate()
+                RegistrationNavigationEvent.NavigateBack -> Unit
+            }
+        }
+    }
+
+    when (val state = uiState) {
+        RegistrationUiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is RegistrationUiState.Error -> {
+            ErrorScreen(
+                message = state.message,
+                onRetryClick = { viewModel.resetUiState() }
+            )
+        }
+
+        else -> {
+            RegistrationScreen(
+                fullName = fullName,
+                email = email,
+                password = password,
+                confirmPassword = confirmPassword,
+                passwordVisible = passwordVisible,
+                confirmPasswordVisible = confirmPasswordVisible,
+                fullNameError = fullNameError,
+                emailError = emailError,
+                passwordError = passwordError,
+                confirmPasswordError = confirmPasswordError,
+                isRegisterEnabled = isRegisterEnabled,
+                onFullNameChange = { fullName = it },
+                onEmailChange = { email = it },
+                onPasswordChange = { password = it },
+                onConfirmPasswordChange = { confirmPassword = it },
+                onPasswordVisibilityChange = {
+                    passwordVisible = !passwordVisible
+                },
+                onConfirmPasswordVisibilityChange = {
+                    confirmPasswordVisible = !confirmPasswordVisible
+                },
+                onRegisterClick = {
+                    viewModel.onRegisterClick(fullName, email, password)
+                },
+                onGoogleClick = { },
+                onLoginClick = onLoginClick,
+            )
+        }
+    }
 }
 
 @Composable

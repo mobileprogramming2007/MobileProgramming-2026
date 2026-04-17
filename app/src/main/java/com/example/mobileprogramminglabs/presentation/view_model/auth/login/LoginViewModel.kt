@@ -12,14 +12,11 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-
-) : ViewModel() {
+class LoginViewModel @Inject constructor() : ViewModel() {
 
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Init)
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-    //Channel(Channel.CONFLATED)
     private val _navigationEvent = Channel<LoginNavigationEvent>(Channel.BUFFERED)
     val navigationEvent = _navigationEvent.receiveAsFlow()
 

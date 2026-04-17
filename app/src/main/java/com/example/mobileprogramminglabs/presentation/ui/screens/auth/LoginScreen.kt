@@ -67,23 +67,6 @@ fun LoginScreen(
     }
 
     when (val state = uiState) {
-        LoginUiState.Init -> {
-            LoginScreen(
-                email = email,
-                password = password,
-                passwordVisible = passwordVisible,
-                emailError = emailError,
-                passwordError = passwordError,
-                isLoginEnabled = isLoginEnabled,
-                onEmailChange = { email = it },
-                onPasswordChange = { password = it },
-                onPasswordVisibilityChange = { passwordVisible = !passwordVisible },
-                onLoginClick = { viewModel.onLoginClick(email, password) },
-                onRegisterClick = onRegisterClick,
-                onGoogleClick = { }
-            )
-        }
-
         LoginUiState.Loading -> {
             LoadingScreen()
         }
@@ -95,7 +78,7 @@ fun LoginScreen(
             )
         }
 
-        is LoginUiState.Success -> {
+        else -> {
             LoginScreen(
                 email = email,
                 password = password,
@@ -113,82 +96,7 @@ fun LoginScreen(
         }
     }
 }
-/*
-@Composable
-fun LoginScreen(
-    viewModel: LoginViewModel,
-    onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit,
-) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
-    var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
-    val emailError = AuthValidators.validateEmail(email)
-    val passwordError = AuthValidators.validatePassword(password)
-
-    val isLoginEnabled = emailError == null && passwordError == null && email.isNotBlank() && password.isNotBlank()
-    NavigationEventHandler(
-        viewModel = viewModel,
-        navigate = navigate
-    )
-
-    LaunchedEffect(uiState) {
-        when (uiState) {
-            is LoginUiState.Success -> {
-                viewModel.resetUiState()
-            }
-
-            is SignInUiState.Failure -> {
-                viewModel.resetUiState()
-            }
-
-            else -> Unit
-        }
-    }
-
-    when (uiState) {
-        is LoginUiState.Loading -> {
-            //LoadingPlaceholder()
-        }
-
-        else -> {
-            LoginScreen(
-                email = email,
-                password = password,
-                passwordVisible = passwordVisible,
-                emailError = emailError,
-                passwordError = passwordError,
-                isLoginEnabled = true,
-                onEmailChange = { email = it },
-                onPasswordChange = { password = it },
-                onPasswordVisibilityChange = {
-                    passwordVisible = !passwordVisible
-                },
-                onLoginClick = onLoginClick,
-                onRegisterClick = onRegisterClick,
-                onGoogleClick = { },
-            )
-        }
-}
-
-@Composable
-private fun NavigationEventHandler(
-    viewModel: LoginViewModel,
-    navigate: () -> Unit,
-) {
-    LaunchedEffect(viewModel) {
-        viewModel.navigationEvent.collect { navigationEvent ->
-            when (navigationEvent) {
-                is LoginNavigationEvent.Navigate -> {
-                    navigate()
-                }
-                is LoginNavigationEvent.NavigateBack -> TODO()
-            }
-        }
-    }
-}
-*/
 @Composable
 private fun LoginScreen(
     email: String,
