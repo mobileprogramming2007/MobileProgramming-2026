@@ -2,6 +2,7 @@ package com.example.mobileprogramminglabs.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -39,7 +40,8 @@ fun NavGraph(
 
         composable(route = Screen.Login.route) {
             LoginScreen(
-                onLoginClick = {navController.navigate(Screen.HomeShortcut.route)},
+                viewModel = hiltViewModel(),
+                onNavigate = { navController.navigate(Screen.HomeShortcut.route) },
                 onRegisterClick = {navController.navigate(Screen.Register.route)}
             )
         }

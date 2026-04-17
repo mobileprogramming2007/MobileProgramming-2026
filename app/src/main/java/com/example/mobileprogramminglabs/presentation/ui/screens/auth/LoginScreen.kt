@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -19,6 +20,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.MobileProgrammingLabsTheme
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.AuthDivider
@@ -29,12 +31,94 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components
 import com.example.mobileprogramminglabs.presentation.ui.components.GoogleIcon
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.PasswordTextField
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.SocialSignInButton
+import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
+import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.util.AuthValidators
+import com.example.mobileprogramminglabs.presentation.view_model.auth.login.LoginNavigationEvent
+import com.example.mobileprogramminglabs.presentation.view_model.auth.login.LoginUiState
+import com.example.mobileprogramminglabs.presentation.view_model.auth.login.LoginViewModel
 
 @Composable
 fun LoginScreen(
+    viewModel: LoginViewModel,
+    onNavigate: () -> Unit,
+    onRegisterClick: () -> Unit,
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+
+    val emailError = AuthValidators.validateEmail(email)
+    val passwordError = AuthValidators.validatePassword(password)
+
+    val isLoginEnabled =
+        emailError == null && passwordError == null &&
+                email.isNotBlank() && password.isNotBlank()
+
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            when (event) {
+                LoginNavigationEvent.Navigate -> onNavigate()
+                LoginNavigationEvent.NavigateBack -> Unit
+            }
+        }
+    }
+
+    when (val state = uiState) {
+        LoginUiState.Init -> {
+            LoginScreen(
+                email = email,
+                password = password,
+                passwordVisible = passwordVisible,
+                emailError = emailError,
+                passwordError = passwordError,
+                isLoginEnabled = isLoginEnabled,
+                onEmailChange = { email = it },
+                onPasswordChange = { password = it },
+                onPasswordVisibilityChange = { passwordVisible = !passwordVisible },
+                onLoginClick = { viewModel.onLoginClick(email, password) },
+                onRegisterClick = onRegisterClick,
+                onGoogleClick = { }
+            )
+        }
+
+        LoginUiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is LoginUiState.Error -> {
+            ErrorScreen(
+                message = state.message,
+                onRetryClick = { viewModel.resetUiState() }
+            )
+        }
+
+        is LoginUiState.Success -> {
+            LoginScreen(
+                email = email,
+                password = password,
+                passwordVisible = passwordVisible,
+                emailError = emailError,
+                passwordError = passwordError,
+                isLoginEnabled = isLoginEnabled,
+                onEmailChange = { email = it },
+                onPasswordChange = { password = it },
+                onPasswordVisibilityChange = { passwordVisible = !passwordVisible },
+                onLoginClick = { viewModel.onLoginClick(email, password) },
+                onRegisterClick = onRegisterClick,
+                onGoogleClick = { }
+            )
+        }
+    }
+}
+/*
+@Composable
+fun LoginScreen(
+    viewModel: LoginViewModel,
     onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
+    onRegisterClick: () -> Unit,
 ) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -43,28 +127,68 @@ fun LoginScreen(
     val emailError = AuthValidators.validateEmail(email)
     val passwordError = AuthValidators.validatePassword(password)
 
-    val isLoginEnabled = emailError == null &&
-            passwordError == null &&
-            email.isNotBlank() &&
-            password.isNotBlank()
+    val isLoginEnabled = emailError == null && passwordError == null && email.isNotBlank() && password.isNotBlank()
+    NavigationEventHandler(
+        viewModel = viewModel,
+        navigate = navigate
+    )
 
-        LoginScreen(
-            email = email,
-            password = password,
-            passwordVisible = passwordVisible,
-            emailError = emailError,
-            passwordError = passwordError,
-            isLoginEnabled = true,
-            onEmailChange = { email = it },
-            onPasswordChange = { password = it },
-            onPasswordVisibilityChange = {
-                passwordVisible = !passwordVisible
-            },
-            onLoginClick = onLoginClick,
-            onRegisterClick = onRegisterClick,
-            onGoogleClick = { },
-        )
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is LoginUiState.Success -> {
+                viewModel.resetUiState()
+            }
+
+            is SignInUiState.Failure -> {
+                viewModel.resetUiState()
+            }
+
+            else -> Unit
+        }
+    }
+
+    when (uiState) {
+        is LoginUiState.Loading -> {
+            //LoadingPlaceholder()
+        }
+
+        else -> {
+            LoginScreen(
+                email = email,
+                password = password,
+                passwordVisible = passwordVisible,
+                emailError = emailError,
+                passwordError = passwordError,
+                isLoginEnabled = true,
+                onEmailChange = { email = it },
+                onPasswordChange = { password = it },
+                onPasswordVisibilityChange = {
+                    passwordVisible = !passwordVisible
+                },
+                onLoginClick = onLoginClick,
+                onRegisterClick = onRegisterClick,
+                onGoogleClick = { },
+            )
+        }
 }
+
+@Composable
+private fun NavigationEventHandler(
+    viewModel: LoginViewModel,
+    navigate: () -> Unit,
+) {
+    LaunchedEffect(viewModel) {
+        viewModel.navigationEvent.collect { navigationEvent ->
+            when (navigationEvent) {
+                is LoginNavigationEvent.Navigate -> {
+                    navigate()
+                }
+                is LoginNavigationEvent.NavigateBack -> TODO()
+            }
+        }
+    }
+}
+*/
 @Composable
 private fun LoginScreen(
     email: String,

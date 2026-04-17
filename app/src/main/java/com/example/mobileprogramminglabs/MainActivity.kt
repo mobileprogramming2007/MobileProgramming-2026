@@ -25,7 +25,9 @@ import com.example.mobileprogramminglabs.presentation.navigation.Screen.Companio
 import com.example.mobileprogramminglabs.presentation.navigation.bottom_bar.BottomBarNavigationComponent
 import com.example.mobileprogramminglabs.presentation.navigation.bottom_bar.BottomBarNavigationItems
 import com.example.mobileprogramminglabs.presentation.theme.MobileProgrammingLabsTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
