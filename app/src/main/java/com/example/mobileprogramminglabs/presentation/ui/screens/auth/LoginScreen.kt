@@ -67,7 +67,7 @@ fun LoginScreen(
     }
 
     when (val state = uiState) {
-        LoginUiState.Loading -> {
+        is LoginUiState.Loading -> {
             LoadingScreen()
         }
 

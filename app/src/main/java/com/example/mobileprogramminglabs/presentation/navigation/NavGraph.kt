@@ -56,11 +56,12 @@ fun NavGraph(
         }
 
         composable(route = Screen.Habit.route) {
-            HabitsScreen()
+            HabitsScreen(viewModel = hiltViewModel())
         }
 
         composable(route = Screen.HomeShortcut.route) {
             HomeShortcutScreen(
+                viewModel = hiltViewModel(),
                 onScreenClick = { route ->
                     navController.navigate(route)
                 }//add logic
@@ -68,7 +69,7 @@ fun NavGraph(
         }
 
         composable(route = Screen.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(viewModel = hiltViewModel())
         }
 
         composable(
@@ -83,14 +84,16 @@ fun NavGraph(
 
             AddQuestScreen(
                 source = source,
-                onSaveButtonClick = {
-                    navController.navigate(Screen.Quest.route)
+                viewModel = hiltViewModel(),
+                onNavigateBack = {
+                    navController.popBackStack()
                 }
             )
         }
 
         composable(route = Screen.Quest.route) {
             QuestScreen(
+                viewModel = hiltViewModel(),
                 onAddQuestClick = {
                     navController.navigate(Screen.AddQuest.createRoute("quest_screen"))
                 }
@@ -102,16 +105,3 @@ fun NavGraph(
         }
     }
 }
-
-/*
-        composable(route = Screen.SignUp.route) {
-            SignUpScreen(
-                viewModel = hiltViewModel(),
-                onSignInClick = { navController.navigate(Screen.SignIn.route) },
-                navigate = {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.Welcome.route) { inclusive = true }
-                    }
-                }
-            )
-        }*/

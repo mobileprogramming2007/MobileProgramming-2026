@@ -1,6 +1,5 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.quest
 
-import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +31,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
@@ -40,12 +41,20 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.quest.component
 import com.example.mobileprogramminglabs.presentation.ui.screens.quest.components.QuestSnackbarHost
 import com.example.mobileprogramminglabs.presentation.ui.components.RPGButton
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
+import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
+import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
+import com.example.mobileprogramminglabs.presentation.view_model.quest.add_quest.AddQuestNavigationEvent
+import com.example.mobileprogramminglabs.presentation.view_model.quest.add_quest.AddQuestUiState
+import com.example.mobileprogramminglabs.presentation.view_model.quest.add_quest.AddQuestViewModel
 
 @Composable
 fun AddQuestScreen(
     source: String,
-    onSaveButtonClick: () -> Unit
+    viewModel: AddQuestViewModel,
+    onNavigateBack: () -> Unit
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     var questTitle by rememberSaveable { mutableStateOf("") }
     var xpReward by rememberSaveable { mutableStateOf("") }
     var checkedDailyQuest by rememberSaveable { mutableStateOf(false) }
@@ -58,23 +67,53 @@ fun AddQuestScreen(
             selectedItem.isNotBlank() &&
             selectedDifficulty.isNotBlank()
 
-    AddQuestScreen(
-        source = source,
-        questTitle = questTitle,
-        xpReward = xpReward,
-        checkedDailyQuest = checkedDailyQuest,
-        enabled = enabled,
-        selectedItem = selectedItem,
-        selectedDifficulty = selectedDifficulty,
-        expanded = expanded,
-        onSaveButtonClick = onSaveButtonClick,
-        onDifficultyOptionClick = { selectedDifficulty = it },
-        onQuestTitleChange = { questTitle = it },
-        onXPRewardChange = { xpReward = it },
-        onCheckedDailyQuestChange = { checkedDailyQuest = it },
-        onExpandedChange = { expanded = it },
-        onSelectedItemChange = { selectedItem = it }
-    )
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            when (event) {
+                AddQuestNavigationEvent.Navigate -> Unit
+                AddQuestNavigationEvent.NavigateBack -> onNavigateBack()
+            }
+        }
+    }
+
+    when (val state = uiState) {
+        is AddQuestUiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is AddQuestUiState.Error -> {
+            ErrorScreen(
+                message = state.message,
+                onRetryClick = { viewModel.resetUiState() }
+            )
+        }
+
+        else -> {
+            AddQuestScreen(
+                source = source,
+                questTitle = questTitle,
+                xpReward = xpReward,
+                checkedDailyQuest = checkedDailyQuest,
+                enabled = enabled,
+                selectedItem = selectedItem,
+                selectedDifficulty = selectedDifficulty,
+                expanded = expanded,
+                onSaveButtonClick = {viewModel.addQuest(
+                    questTitle = questTitle,
+                    xpReward = xpReward,
+                    category = selectedItem,
+                    difficulty = selectedDifficulty,
+                    isDaily = checkedDailyQuest
+                )},
+                onDifficultyOptionClick = { selectedDifficulty = it },
+                onQuestTitleChange = { questTitle = it },
+                onXPRewardChange = { xpReward = it },
+                onCheckedDailyQuestChange = { checkedDailyQuest = it },
+                onExpandedChange = { expanded = it },
+                onSelectedItemChange = { selectedItem = it }
+            )
+        }
+    }
 }
 
 @Composable
