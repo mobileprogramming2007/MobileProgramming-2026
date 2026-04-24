@@ -13,8 +13,8 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,9 +27,27 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.settings.compon
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
-    var notificationsEnabled by remember { mutableStateOf(true) }
-    var darkModeEnabled by remember { mutableStateOf(false) }
+fun SettingsScreen(
+) {
+    var notificationsEnabled by rememberSaveable { mutableStateOf(true) }
+    var darkModeEnabled by rememberSaveable { mutableStateOf(false) }
+
+    SettingsScreen(
+        notificationsEnabled = notificationsEnabled,
+        darkModeEnabled = darkModeEnabled,
+        onNotificationsCheckedChange = { notificationsEnabled = it },
+        onDarkModeCheckedChange = { darkModeEnabled = it },
+    )
+}
+
+@Composable
+private fun SettingsScreen(
+    notificationsEnabled: Boolean,
+    darkModeEnabled: Boolean,
+    onNotificationsCheckedChange: (Boolean) -> Unit,
+    onDarkModeCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
 
     Column(
         modifier = modifier
@@ -45,14 +63,14 @@ fun SettingsScreen(modifier: Modifier = Modifier) {
             icon = Icons.Default.Notifications,
             title = "Notifications",
             checked = notificationsEnabled,
-            onCheckedChange = { notificationsEnabled = it }
+            onCheckedChange = onNotificationsCheckedChange
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
         SettingsSwitchItem(
             icon = Icons.Default.Settings,
             title = "Dark Mode",
             checked = darkModeEnabled,
-            onCheckedChange = { darkModeEnabled = it }
+            onCheckedChange = onDarkModeCheckedChange
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xmedium)))
         SettingsInfoItem(

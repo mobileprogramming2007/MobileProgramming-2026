@@ -29,7 +29,7 @@ import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.Thistle
-import com.example.mobileprogramminglabs.presentation.ui.util.QuestData
+import com.example.mobileprogramminglabs.presentation.ui.screens.quest.util.QuestData
 
 @Composable
 fun QuestItem(

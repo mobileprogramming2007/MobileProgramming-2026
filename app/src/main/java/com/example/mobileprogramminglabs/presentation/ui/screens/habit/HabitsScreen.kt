@@ -8,18 +8,65 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.ui.screens.habit.components.HabitItem
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
+import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.habit.util.HabitModel
+import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
+import com.example.mobileprogramminglabs.presentation.view_model.habit.HabitNavigationEvent
+import com.example.mobileprogramminglabs.presentation.view_model.habit.HabitUiState
+import com.example.mobileprogramminglabs.presentation.view_model.habit.HabitViewModel
 
 @Composable
 fun HabitsScreen(
+    viewModel: HabitViewModel
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            when (event) {
+                HabitNavigationEvent.Navigate -> Unit
+                HabitNavigationEvent.NavigateBack -> Unit
+            }
+        }
+    }
+
+    when (val state = uiState) {
+        is HabitUiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is HabitUiState.Error -> {
+            ErrorScreen(
+                message = state.message,
+                onRetryClick = { viewModel.resetUiState() }
+            )
+        }
+
+        is HabitUiState.Success -> {
+            HabitsScreen(
+                habits = state.habits
+            )
+        }
+
+        else -> {
+            //no-op
+        }
+    }
+}
+
+@Composable
+private fun HabitsScreen(
     habits: List<HabitModel>,
     modifier: Modifier = Modifier
 ) {

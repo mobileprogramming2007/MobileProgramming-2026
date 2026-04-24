@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,37 +30,60 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.DeepTealDark
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 import com.example.mobileprogramminglabs.presentation.ui.components.ShortcutCard
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
+import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
+import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
+import com.example.mobileprogramminglabs.presentation.view_model.home.HomeShortcutNavigationEvent
+import com.example.mobileprogramminglabs.presentation.view_model.home.HomeShortcutUiState
+import com.example.mobileprogramminglabs.presentation.view_model.home.HomeShortcutViewModel
 
 @Composable
-fun HomeShortcutScreen() {
-    var searchQuery by rememberSaveable { mutableStateOf("") }
+fun HomeShortcutScreen(
+    viewModel: HomeShortcutViewModel,
+    onScreenClick: (String) -> Unit
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val shortcuts = listOf(
-        ScreenShortcutData("Achievements", Icons.Default.Star, R.drawable.achievement),
-        ScreenShortcutData("Add Quest", Icons.Default.Add, R.drawable.add_quests),
-        ScreenShortcutData("Habits", Icons.Default.DateRange, R.drawable.habits),
-        ScreenShortcutData("Quests", Icons.Default.Build, R.drawable.quests),
-        ScreenShortcutData("Profile", Icons.Default.Star, R.drawable.achievement),
-        ScreenShortcutData("Dashboard", Icons.Default.Build, R.drawable.quests)
-    )
-
-    val filteredShortcuts = shortcuts.filter {
-        it.title.contains(searchQuery, ignoreCase = true)
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            when (event) {
+                HomeShortcutNavigationEvent.Navigate -> Unit
+                HomeShortcutNavigationEvent.NavigateBack -> Unit
+            }
+        }
     }
 
-    HomeShortcutScreen(
-        searchQuery = searchQuery,
-        shortcuts  = filteredShortcuts,
-        onSearchQueryChange = { searchQuery = it },
-        onScreenClick = {}
-    )
+    when (val state = uiState) {
+        is HomeShortcutUiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is HomeShortcutUiState.Error -> {
+            ErrorScreen(
+                message = state.message,
+                onRetryClick = { viewModel.resetUiState() }
+            )
+        }
+
+        is HomeShortcutUiState.Success -> {
+            HomeShortcutScreen(
+                searchQuery = state.searchQuery,
+                shortcuts = state.shortcuts,
+                onSearchQueryChange = viewModel::onSearchQueryChange,
+                onScreenClick = onScreenClick
+            )
+        }
+        else -> {
+            //no-op
+        }
+    }
 }
 
 @Composable
