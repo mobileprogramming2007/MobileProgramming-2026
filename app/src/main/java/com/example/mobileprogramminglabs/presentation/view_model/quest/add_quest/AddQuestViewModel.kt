@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -54,17 +55,21 @@ class AddQuestViewModel @Inject constructor() : ViewModel() {
                 }
 
                 else -> {
-                    // for now we only simulate a successful save
-                    // later this is where backend/database save will happen
+                    saveQuest()
 
                     _uiState.value = AddQuestUiState.Success
                     _navigationEvent.send(AddQuestNavigationEvent.NavigateBack)
                 }
+
             }
         }
     }
 
-    fun resetUiState() {
+        private suspend fun saveQuest() {
+            delay(1000)
+        }
+
+        fun resetUiState() {
         _uiState.value = AddQuestUiState.Init
     }
 }
