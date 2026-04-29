@@ -50,6 +50,7 @@ fun HomeShortcutScreen(
     onScreenClick: (String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val searchTip by viewModel.searchTip.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.navigationEvent.collect { event ->

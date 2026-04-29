@@ -12,9 +12,12 @@ import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -26,6 +29,10 @@ class HomeShortcutViewModel @Inject constructor() : ViewModel() {
 
     private val _navigationEvent = Channel<HomeShortcutNavigationEvent>(Channel.BUFFERED)
     val navigationEvent = _navigationEvent.receiveAsFlow()
+
+    private val _searchTip = MutableStateFlow("")
+    val searchTip: StateFlow<String> = _searchTip.asStateFlow()
+
 
     private val allShortcuts = listOf(
         ScreenShortcutData("Achievements", Icons.Default.Star, R.drawable.achievement),
@@ -60,6 +67,24 @@ class HomeShortcutViewModel @Inject constructor() : ViewModel() {
             searchQuery = query,
             shortcuts = filteredShortcuts
         )
+    }
+
+    private fun observeSearchTips(): Flow<String> = flow {
+        emit("Try searching for Habits")
+        delay(1000)
+
+        emit("Try searching for Profile")
+        delay(1000)
+
+        emit("Try searching for Quests")
+    }
+
+    private fun startSearchTips() {
+        viewModelScope.launch {
+            observeSearchTips().collect { tip ->
+                _searchTip.value = tip
+            }
+        }
     }
 
     fun resetUiState() {

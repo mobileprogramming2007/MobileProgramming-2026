@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,6 +28,8 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
     ) {
         viewModelScope.launch {
             _uiState.value = RegistrationUiState.Loading
+
+            delay(1500)
 
             if (fullName.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
                 _uiState.value = RegistrationUiState.Success
