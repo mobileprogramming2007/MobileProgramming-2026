@@ -6,6 +6,5 @@ data class ProfileData(
     val name: String,
     val levelNo: String,
     val levelDescription: String,
-    val profileStats: List<InfoRowData>,
-    val additionalRows: List<InfoRowData>
+    val profileStats: List<InfoRowData>
 )

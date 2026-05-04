@@ -1,29 +1,29 @@
 package com.example.mobileprogramminglabs.presentation.navigation.bottom_bar
 
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.presentation.navigation.Screen
+
 
 object BottomBarNavigationItems {
     val items = listOf(
         BottomBarNavigationItem(
             titleId = R.string.home,
             iconRes = R.drawable.apple__streamline_unicons,
-            route = Screen.HomeShortcut.route
+            destination = BottomBarDestination.Home
         ),
         BottomBarNavigationItem(
             titleId = R.string.quest,
             iconRes = R.drawable.apple__streamline_unicons,
-            route = Screen.Quest.route
+            destination = BottomBarDestination.Quest
         ),
         BottomBarNavigationItem(
             titleId = R.string.habit,
             iconRes = R.drawable.apple__streamline_unicons,
-            route = Screen.Habit.route
+            destination = BottomBarDestination.Habit
         ),
         BottomBarNavigationItem(
             titleId = R.string.profile,
             iconRes = R.drawable.apple__streamline_unicons,
-            route = Screen.Profile.route
+            destination = BottomBarDestination.Profile
         )
     )
 }

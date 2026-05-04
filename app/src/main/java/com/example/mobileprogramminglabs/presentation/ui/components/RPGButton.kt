@@ -6,9 +6,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.DustyOlive
@@ -16,6 +14,7 @@ import com.example.mobileprogramminglabs.presentation.theme.MobileProgrammingLab
 
 @Composable
 fun RPGButton(
+    title: String,
     enabled: Boolean,
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -30,7 +29,7 @@ fun RPGButton(
         )
     ) {
         Text(
-            text = stringResource(R.string.save_quest),
+            text = title,
             color = AliceBlue
         )
     }
@@ -40,6 +39,10 @@ fun RPGButton(
 @Composable
 private fun RPGButtonPrev() {
     MobileProgrammingLabsTheme{
-        RPGButton(enabled = true, onButtonClick = {})
+        RPGButton(
+            title = "Save Quest",
+            enabled = true,
+            onButtonClick = {}
+        )
     }
 }

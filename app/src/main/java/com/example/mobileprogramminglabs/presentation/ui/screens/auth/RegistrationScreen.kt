@@ -32,6 +32,7 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components
 import com.example.mobileprogramminglabs.presentation.ui.components.GoogleIcon
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.PasswordTextField
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.SocialSignInButton
+import com.example.mobileprogramminglabs.presentation.ui.screens.auth.util.RegisterUserData
 import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.util.AuthValidators
@@ -118,7 +119,14 @@ fun RegistrationScreen(
                     confirmPasswordVisible = !confirmPasswordVisible
                 },
                 onRegisterClick = {
-                    viewModel.onRegisterClick(fullName, email, password)
+                    android.util.Log.d("DB_TEST", "REGISTER BUTTON PRESSED")
+                    viewModel.onRegisterClick(
+                        RegisterUserData(
+                            fullName = fullName,
+                            email = email,
+                            password = password
+                        )
+                    )
                 },
                 onGoogleClick = { },
                 onLoginClick = onLoginClick,
