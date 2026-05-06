@@ -225,6 +225,7 @@ private fun AddQuestScreen(
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_large)))
             RPGButton(
+                title = "Save Quest",
                 enabled = enabled,
                 onButtonClick = onSaveButtonClick
             )

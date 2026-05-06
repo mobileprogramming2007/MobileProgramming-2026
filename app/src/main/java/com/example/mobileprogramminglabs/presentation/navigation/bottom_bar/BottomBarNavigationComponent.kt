@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.presentation.navigation.Screen
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlueLight
 import com.example.mobileprogramminglabs.presentation.theme.DustyOliveLight
 import com.example.mobileprogramminglabs.presentation.theme.MobileProgrammingLabsTheme
@@ -70,17 +68,17 @@ fun BottomBarNavigationComponent(
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = if (selected) Blue else DustyOliveLight,
                                     fontSize = 12.sp,
-                                    fontWeight =  if (selected) FontWeight.W400 else FontWeight.W300
+                                    fontWeight = if (selected) FontWeight.W400 else FontWeight.W300
                                 )
                             )
                         }
                     },
                     icon = {
-                            Icon(
-                                painter = painterResource(id = item.iconRes),
-                                contentDescription = stringResource(id = item.titleId),
-                                tint = if (selected) Blue else DustyOliveLight
-                            )
+                        Icon(
+                            painter = painterResource(id = item.iconRes),
+                            contentDescription = stringResource(id = item.titleId),
+                            tint = if (selected) Blue else DustyOliveLight
+                        )
                     },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = DustyOliveLight,
@@ -99,28 +97,7 @@ fun BottomBarNavigationComponent(
 @Composable
 private fun BottomBarNavigationComponentPreview() {
     MobileProgrammingLabsTheme {
-        val items = listOf(
-            BottomBarNavigationItem(
-                titleId = R.string.home,
-                iconRes = R.drawable.apple__streamline_unicons,
-                route = Screen.HomeShortcut.route
-            ),
-            BottomBarNavigationItem(
-                titleId = R.string.quest,
-                iconRes = R.drawable.apple__streamline_unicons,
-                route = Screen.Quest.route
-            ),
-            BottomBarNavigationItem(
-                titleId = R.string.habit,
-                iconRes = R.drawable.apple__streamline_unicons,
-                route = Screen.Habit.route
-            ),
-            BottomBarNavigationItem(
-                titleId = R.string.profile,
-                iconRes = R.drawable.apple__streamline_unicons,
-                route = Screen.Profile.route
-            )
-        )
+        val items = BottomBarNavigationItems.items
         var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
 
         BottomBarNavigationComponent(

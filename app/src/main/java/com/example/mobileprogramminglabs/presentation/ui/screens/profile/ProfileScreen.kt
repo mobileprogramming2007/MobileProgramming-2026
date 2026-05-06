@@ -1,14 +1,28 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.profile
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,21 +31,37 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mobileprogramminglabs.R
+import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
+import com.example.mobileprogramminglabs.presentation.ui.components.InfoRow
 import com.example.mobileprogramminglabs.presentation.ui.components.InfoSection
+import com.example.mobileprogramminglabs.presentation.ui.components.RPGButton
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.profile.components.ProfileSection
 import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
+import com.example.mobileprogramminglabs.presentation.view_model.profile.ProfileNavigationEvent
 import com.example.mobileprogramminglabs.presentation.view_model.profile.ProfileUiState
 import com.example.mobileprogramminglabs.presentation.view_model.profile.ProfileViewModel
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel
+    viewModel: ProfileViewModel,
+    onEditNavigate: () -> Unit,
+    onLogoutNavigate: () -> Unit,
+    onAchievementsClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            when (event) {
+                ProfileNavigationEvent.Navigate -> onEditNavigate()
+                ProfileNavigationEvent.NavigateBack -> onLogoutNavigate()
+            }
+        }
+    }
 
     when (val state = uiState) {
         is ProfileUiState.Loading -> {
@@ -51,23 +81,29 @@ fun ProfileScreen(
                 levelNo = state.profileData.levelNo,
                 levelDescription = state.profileData.levelDescription,
                 profileStats = state.profileData.profileStats,
-                additionalRows = state.profileData.additionalRows
+                onEditClick = viewModel::onEditClick,
+                onLogoutClick = viewModel::onLogoutClick,
+                onDeleteClick = viewModel::onDeleteClick,
+                onAchievementClick = onAchievementsClick
             )
         }
 
-        else -> {
-            //no-op
+        is ProfileUiState.Init -> {
+            LoadingScreen()
         }
     }
 }
 
 @Composable
-fun ProfileScreen(
+private fun ProfileScreen(
     name: String,
     levelNo: String,
     levelDescription: String,
     profileStats: List<InfoRowData>,
-    additionalRows: List<InfoRowData>,
+    onEditClick: () -> Unit,
+    onLogoutClick: () -> Unit,
+    onDeleteClick: () -> Unit,
+    onAchievementClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -90,9 +126,63 @@ fun ProfileScreen(
             rows = profileStats
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
-        InfoSection(
-            title = stringResource(R.string.additional),
-            rows = additionalRows
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(
+                dimensionResource(R.dimen.padding_medium)
+            )
+        ) {
+            Card(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable(onClick = onEditClick)
+            ) {
+                InfoRow(
+                    title = "Edit Profile",
+                    imageVector = Icons.Default.Edit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(DeepTeal)
+                        .padding(dimensionResource(R.dimen.padding_medium))
+                )
+            }
+
+            Card(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable(onClick = onDeleteClick)
+            ) {
+                InfoRow(
+                    title = "Delete Profile",
+                    imageVector = Icons.Default.Delete,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(DeepTeal)
+                        .padding(dimensionResource(R.dimen.padding_medium))
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onAchievementClick)
+        ) {
+            InfoRow(
+                title = "Achievements",
+                imageVector = Icons.Default.CheckCircle,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(DeepTeal)
+                    .padding(dimensionResource(R.dimen.padding_medium))
+            )
+        }
+
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_medium)))
+        RPGButton(
+            title = "Logout",
+            enabled = true,
+            onButtonClick = onLogoutClick
         )
     }
 }
@@ -110,9 +200,10 @@ fun ProfileScreenPreview() {
                 InfoRowData("Total XP", additionalInfo = "120"),
                 InfoRowData("Achievements", additionalInfo = "Top")
             ),
-            additionalRows = listOf(
-                InfoRowData("Edit Profile", imageVector = Icons.Default.Edit)
-            )
+            onEditClick = {},
+            onLogoutClick = {},
+            onDeleteClick = {},
+            onAchievementClick = {}
         )
     }
 }

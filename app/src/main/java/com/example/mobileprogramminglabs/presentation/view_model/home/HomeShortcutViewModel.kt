@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeShortcutViewModel @Inject constructor() : ViewModel() {

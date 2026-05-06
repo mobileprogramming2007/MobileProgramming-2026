@@ -41,7 +41,7 @@ import com.example.mobileprogramminglabs.presentation.view_model.auth.login.Logi
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel,
-    onNavigate: () -> Unit,
+    onNavigate: (Int) -> Unit,
     onRegisterClick: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -54,13 +54,15 @@ fun LoginScreen(
     val passwordError = AuthValidators.validatePassword(password)
 
     val isLoginEnabled =
-        emailError == null && passwordError == null &&
-                email.isNotBlank() && password.isNotBlank()
+        emailError == null &&
+                passwordError == null &&
+                email.isNotBlank() &&
+                password.isNotBlank()
 
     LaunchedEffect(Unit) {
         viewModel.navigationEvent.collect { event ->
             when (event) {
-                LoginNavigationEvent.Navigate -> onNavigate()
+                is LoginNavigationEvent.Navigate -> onNavigate(event.userId)
                 LoginNavigationEvent.NavigateBack -> Unit
             }
         }
