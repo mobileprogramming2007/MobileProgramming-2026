@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobileprogramminglabs.model.repository.user.mapper.toEditProfileData
-import com.example.mobileprogramminglabs.model.repository.user.mapper.toUserEntity
+import com.example.mobileprogramminglabs.model.datasource.local.mapper.toEditProfileData
+import com.example.mobileprogramminglabs.model.datasource.local.mapper.toUserEntity
 import com.example.mobileprogramminglabs.model.repository.user.UserRepository
 import com.example.mobileprogramminglabs.presentation.ui.screens.profile.util.EditProfileData
 import dagger.hilt.android.lifecycle.HiltViewModel

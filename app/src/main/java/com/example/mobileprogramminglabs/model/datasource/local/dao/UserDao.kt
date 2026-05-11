@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.model.data.local.dao
+package com.example.mobileprogramminglabs.model.datasource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.mobileprogramminglabs.model.data.local.entity.UserEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

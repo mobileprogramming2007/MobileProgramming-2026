@@ -1,65 +1,83 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.habit.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
-import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 
 @Composable
 fun HabitItem(
     title: String,
     streak: String,
+    onEditClick: () -> Unit,
+    onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
+    Card(
         modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(dimensionResource(R.dimen.size_small)))
-            .background(AliceBlue)
-            .padding(dimensionResource(R.dimen.padding_medium)),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = Icons.Default.CheckCircle,
-                contentDescription = title,
-                tint = RosyTaupe,
-                modifier = Modifier.size(dimensionResource(R.dimen.icon_size))
-            )
-            Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.padding_xsmall)))
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge,
-                color = DeepTeal,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Text(
-            text = streak,
-            style = MaterialTheme.typography.bodyMedium,
-            color = DeepTeal
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = AliceBlue
         )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_medium)),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = DeepTeal
+                )
+                Text(
+                    text = streak,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+            Row {
+                IconButton(onClick = onEditClick) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Edit habit",
+                        tint = DeepTeal
+                    )
+                }
+                Spacer(modifier = Modifier.width(dimensionResource(R.dimen.width_small)))
+                IconButton(onClick = onDeleteClick) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete habit",
+                        tint = DeepTeal
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -69,7 +87,9 @@ private fun HabitItemPreview() {
     MaterialTheme {
         HabitItem(
             title = "Quests Completed",
-            streak = "5"
+            streak = "5",
+            onEditClick = {},
+            onDeleteClick = {}
         )
     }
 }

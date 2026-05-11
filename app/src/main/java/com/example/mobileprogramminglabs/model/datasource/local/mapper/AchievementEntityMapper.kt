@@ -1,8 +1,8 @@
-package com.example.mobileprogramminglabs.model.repository.achievement.mapper
+package com.example.mobileprogramminglabs.model.datasource.local.mapper
 
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.model.data.local.entity.AchievementEntity
-import com.example.mobileprogramminglabs.model.data.local.entity.UserAchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.AchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.UserAchievementEntity
 import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.util.AchievementData
 import java.text.SimpleDateFormat
 import java.util.Date

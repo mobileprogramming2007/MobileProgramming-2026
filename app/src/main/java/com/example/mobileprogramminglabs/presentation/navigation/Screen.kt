@@ -25,6 +25,13 @@ sealed class Screen(val route: String) {
     data object Dashboard : Screen("dashboard_screen")
 
     data object Setting : Screen("setting_screen")
+    data object AddHabit : Screen("add_habit_screen")
+
+    data class EditHabit(val habitId: Int) : Screen("edit_habit_screen/{habitId}") {
+        companion object {
+            fun createRoute(habitId: Int): String = "edit_habit_screen/$habitId"
+        }
+    }
 
     companion object {
         fun isBottomBarRoute(route: String?): Boolean {

@@ -2,9 +2,9 @@ package com.example.mobileprogramminglabs.model.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.mobileprogramminglabs.model.data.local.dao.AchievementDao
-import com.example.mobileprogramminglabs.model.data.local.dao.UserDao
-import com.example.mobileprogramminglabs.model.data.local.db.AppDatabase
+import com.example.mobileprogramminglabs.model.datasource.local.dao.AchievementDao
+import com.example.mobileprogramminglabs.model.datasource.local.dao.UserDao
+import com.example.mobileprogramminglabs.model.datasource.local.db.AppDatabase
 import com.example.mobileprogramminglabs.model.repository.achievement.AchievementRepository
 import com.example.mobileprogramminglabs.model.repository.achievement.AchievementRepositoryImpl
 import com.example.mobileprogramminglabs.model.repository.user.SessionRepository
