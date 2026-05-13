@@ -13,6 +13,8 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.Ach
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.LoginScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.RegistrationScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.dashboard.DashboardScreen
+import com.example.mobileprogramminglabs.presentation.ui.screens.habit.AddHabitScreen
+import com.example.mobileprogramminglabs.presentation.ui.screens.habit.EditHabitScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.habit.HabitsScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.home.HomeShortcutScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.profile.EditProfileScreen
@@ -68,7 +70,25 @@ fun NavGraph(
         }
 
         composable(route = Screen.Habit.route) {
-            HabitsScreen(viewModel = hiltViewModel())
+            HabitsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToAddHabit = {navController.navigate(Screen.AddHabit.route)},
+                onNavigateToEditHabit = { habitId ->
+                    navController.navigate(Screen.EditHabit.createRoute(habitId))
+                }
+            )
+        }
+
+        composable(
+            route = Screen.EditHabit(0).route,
+            arguments = listOf(
+                navArgument("habitId") { type = NavType.IntType }
+            )
+        ) {
+            EditHabitScreen(
+                viewModel = hiltViewModel(),
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
 
         composable(
@@ -162,5 +182,23 @@ fun NavGraph(
                 viewModel = hiltViewModel()
             )
         }
+
+        composable(route = Screen.AddHabit.route) {
+            AddHabitScreen(
+                viewModel = hiltViewModel(),
+                onHabitSaved = {
+                    navController.previousBackStackEntry
+                        ?.savedStateHandle
+                        ?.set("habit_added", true)
+
+                    navController.popBackStack()
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+
     }
 }

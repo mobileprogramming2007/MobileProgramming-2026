@@ -1,11 +1,11 @@
-package com.example.mobileprogramminglabs.model.data.local.dao
+package com.example.mobileprogramminglabs.model.datasource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.mobileprogramminglabs.model.data.local.entity.AchievementEntity
-import com.example.mobileprogramminglabs.model.data.local.entity.UserAchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.AchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.UserAchievementEntity
 
 @Dao
 interface AchievementDao {

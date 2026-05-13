@@ -1,6 +1,6 @@
 package com.example.mobileprogramminglabs.model.repository.user
 
-import com.example.mobileprogramminglabs.model.data.local.entity.UserEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.UserEntity
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.util.RegisterUserData
 import kotlinx.coroutines.flow.Flow
 

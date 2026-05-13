@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.model.repository.achievement.AchievementRepository
-import com.example.mobileprogramminglabs.model.repository.achievement.mapper.toAchievementData
 import com.example.mobileprogramminglabs.model.repository.user.SessionRepository
 import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.util.AchievementData
 import dagger.hilt.android.lifecycle.HiltViewModel

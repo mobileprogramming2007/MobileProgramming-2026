@@ -13,7 +13,6 @@ import javax.inject.Singleton
 
 private val Context.dataStore by preferencesDataStore(name = "session_prefs")
 
-@Singleton
 class SessionRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : SessionRepository {

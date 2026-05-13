@@ -1,6 +1,6 @@
-package com.example.mobileprogramminglabs.model.data.local.util
+package com.example.mobileprogramminglabs.model.util
 
-import com.example.mobileprogramminglabs.model.data.local.entity.AchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.AchievementEntity
 
 object AchievementSeed {
 

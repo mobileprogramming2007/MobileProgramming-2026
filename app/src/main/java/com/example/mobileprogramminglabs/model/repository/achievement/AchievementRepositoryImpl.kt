@@ -1,10 +1,10 @@
 package com.example.mobileprogramminglabs.model.repository.achievement
 
-import com.example.mobileprogramminglabs.model.data.local.dao.AchievementDao
-import com.example.mobileprogramminglabs.model.data.local.entity.AchievementEntity
-import com.example.mobileprogramminglabs.model.data.local.entity.UserAchievementEntity
-import com.example.mobileprogramminglabs.model.data.local.util.AchievementSeed
-import com.example.mobileprogramminglabs.model.data.local.util.UserAchievementSeed
+import com.example.mobileprogramminglabs.model.datasource.local.dao.AchievementDao
+import com.example.mobileprogramminglabs.model.datasource.local.entity.AchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.UserAchievementEntity
+import com.example.mobileprogramminglabs.model.util.AchievementSeed
+import com.example.mobileprogramminglabs.model.util.UserAchievementSeed
 import javax.inject.Inject
 
 class AchievementRepositoryImpl @Inject constructor(

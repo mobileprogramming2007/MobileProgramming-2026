@@ -1,7 +1,7 @@
 package com.example.mobileprogramminglabs.model.repository.achievement
 
-import com.example.mobileprogramminglabs.model.data.local.entity.AchievementEntity
-import com.example.mobileprogramminglabs.model.data.local.entity.UserAchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.AchievementEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.UserAchievementEntity
 
 interface AchievementRepository {
 

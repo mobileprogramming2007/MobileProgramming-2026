@@ -1,8 +1,8 @@
-package com.example.mobileprogramminglabs.model.repository.user.mapper
+package com.example.mobileprogramminglabs.model.datasource.local.mapper
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import com.example.mobileprogramminglabs.model.data.local.entity.UserEntity
+import com.example.mobileprogramminglabs.model.datasource.local.entity.UserEntity
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.util.RegisterUserData
 import com.example.mobileprogramminglabs.presentation.ui.screens.profile.util.EditProfileData
 import com.example.mobileprogramminglabs.presentation.ui.screens.profile.util.ProfileData
