@@ -1,8 +1,8 @@
-package com.example.mobileprogramminglabs.model.datasource.network.service
+package com.example.mobileprogramminglabs.model.datasource.network.api.service
 
-import com.example.mobileprogramminglabs.model.datasource.network.dto.CreateHabitDto
-import com.example.mobileprogramminglabs.model.datasource.network.dto.HabitDto
-import com.example.mobileprogramminglabs.model.datasource.network.dto.UpdateHabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.api.dto.CreateHabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.api.dto.HabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.api.dto.UpdateHabitDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

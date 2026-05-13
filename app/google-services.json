@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "447959955803",
+    "project_id": "lab12mobileprogramming",
+    "storage_bucket": "lab12mobileprogramming.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447959955803:android:c2e84ab223f92244d8827e",
+        "android_client_info": {
+          "package_name": "com.example.mobileprogramminglabs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqQu5JShyfFQ2LAna-eLM7vjXEDBTl-5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

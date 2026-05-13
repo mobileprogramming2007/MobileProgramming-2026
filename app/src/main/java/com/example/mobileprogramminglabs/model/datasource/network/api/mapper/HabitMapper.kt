@@ -1,6 +1,6 @@
-package com.example.mobileprogramminglabs.model.datasource.network.mapper
+package com.example.mobileprogramminglabs.model.datasource.network.api.mapper
 
-import com.example.mobileprogramminglabs.model.datasource.network.dto.HabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.api.dto.HabitDto
 import com.example.mobileprogramminglabs.presentation.ui.screens.habit.util.HabitModel
 
 fun HabitDto.toHabitModel(): HabitModel {

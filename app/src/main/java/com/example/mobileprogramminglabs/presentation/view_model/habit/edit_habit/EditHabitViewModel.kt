@@ -1,6 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.view_model.habit.edit_habit
 
-import com.example.mobileprogramminglabs.model.datasource.network.dto.UpdateHabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.api.dto.UpdateHabitDto
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -2,7 +2,7 @@ package com.example.mobileprogramminglabs.presentation.view_model.habit.add_habi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobileprogramminglabs.model.datasource.network.dto.CreateHabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.api.dto.CreateHabitDto
 import com.example.mobileprogramminglabs.model.repository.habit.HabitRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

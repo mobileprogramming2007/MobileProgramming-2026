@@ -1,4 +1,4 @@
-package com.example.mobileprogramminglabs.model.datasource.network.dto
+package com.example.mobileprogramminglabs.model.datasource.network.api.dto
 
 data class HabitDto(
     val id: Int,
