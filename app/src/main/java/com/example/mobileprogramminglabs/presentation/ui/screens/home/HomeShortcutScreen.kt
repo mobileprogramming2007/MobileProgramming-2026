@@ -39,7 +39,7 @@ import com.example.mobileprogramminglabs.presentation.ui.components.ShortcutCard
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
-import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
+import com.example.mobileprogramminglabs.domain.data.ScreenShortcutData
 import com.example.mobileprogramminglabs.presentation.view_model.home.HomeShortcutNavigationEvent
 import com.example.mobileprogramminglabs.presentation.view_model.home.HomeShortcutUiState
 import com.example.mobileprogramminglabs.presentation.view_model.home.HomeShortcutViewModel

@@ -8,7 +8,7 @@ import androidx.compose.material.icons.filled.Star
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
+import com.example.mobileprogramminglabs.domain.data.ScreenShortcutData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay

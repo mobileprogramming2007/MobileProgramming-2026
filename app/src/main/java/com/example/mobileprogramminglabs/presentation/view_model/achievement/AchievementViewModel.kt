@@ -3,9 +3,9 @@ package com.example.mobileprogramminglabs.presentation.view_model.achievement
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.model.repository.achievement.AchievementRepository
-import com.example.mobileprogramminglabs.model.repository.user.SessionRepository
-import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.util.AchievementData
+import com.example.mobileprogramminglabs.domain.repository.AchievementRepository
+import com.example.mobileprogramminglabs.domain.repository.SessionRepository
+import com.example.mobileprogramminglabs.domain.data.AchievementData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

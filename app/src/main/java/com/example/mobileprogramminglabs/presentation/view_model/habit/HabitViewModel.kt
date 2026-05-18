@@ -2,8 +2,8 @@ package com.example.mobileprogramminglabs.presentation.view_model.habit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobileprogramminglabs.model.datasource.network.api.mapper.toHabitModel
-import com.example.mobileprogramminglabs.model.repository.habit.HabitRepository
+import com.example.mobileprogramminglabs.model.mapper.toHabitModel
+import com.example.mobileprogramminglabs.domain.repository.HabitRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

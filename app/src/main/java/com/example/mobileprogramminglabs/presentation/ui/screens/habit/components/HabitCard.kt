@@ -18,7 +18,7 @@ import com.example.mobileprogramminglabs.presentation.theme.AliceBlueLight
 import com.example.mobileprogramminglabs.presentation.theme.DustyOliveLight
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 import com.example.mobileprogramminglabs.presentation.theme.Thistle
-import com.example.mobileprogramminglabs.presentation.ui.screens.habit.util.HabitCardModel
+import com.example.mobileprogramminglabs.domain.data.HabitCardModel
 
 @Composable
 fun HabitCard(

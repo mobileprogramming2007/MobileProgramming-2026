@@ -1,9 +1,10 @@
 package com.example.mobileprogramminglabs.model.repository.habit
 
-import com.example.mobileprogramminglabs.model.datasource.network.api.dto.CreateHabitDto
-import com.example.mobileprogramminglabs.model.datasource.network.api.dto.HabitDto
-import com.example.mobileprogramminglabs.model.datasource.network.api.dto.UpdateHabitDto
-import com.example.mobileprogramminglabs.model.datasource.network.api.service.HabitApiService
+import com.example.mobileprogramminglabs.domain.repository.HabitRepository
+import com.example.mobileprogramminglabs.model.datasource.network.dto.CreateHabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.dto.HabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.dto.UpdateHabitDto
+import com.example.mobileprogramminglabs.model.datasource.network.service.HabitApiService
 import javax.inject.Inject
 
 class HabitRepositoryImpl @Inject constructor(

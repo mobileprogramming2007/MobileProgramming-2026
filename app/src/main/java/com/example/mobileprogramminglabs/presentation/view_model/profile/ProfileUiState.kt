@@ -1,6 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.view_model.profile
 
-import com.example.mobileprogramminglabs.presentation.ui.screens.profile.util.ProfileData
+import com.example.mobileprogramminglabs.domain.data.ProfileData
 
 sealed interface ProfileUiState {
     data object Init : ProfileUiState

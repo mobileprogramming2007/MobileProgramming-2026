@@ -1,7 +1,7 @@
 package com.example.mobileprogramminglabs.model.di
 
-import com.example.mobileprogramminglabs.model.datasource.network.api.service.HabitApiService
-import com.example.mobileprogramminglabs.model.repository.habit.HabitRepository
+import com.example.mobileprogramminglabs.model.datasource.network.service.HabitApiService
+import com.example.mobileprogramminglabs.domain.repository.HabitRepository
 import com.example.mobileprogramminglabs.model.repository.habit.HabitRepositoryImpl
 import dagger.Module
 import dagger.Provides

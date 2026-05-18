@@ -12,7 +12,20 @@
           "package_name": "com.example.mobileprogramminglabs"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "447959955803-42o51q9c9jknp74e1kjalqavf00vtk20.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobileprogramminglabs",
+            "certificate_hash": "1951fb9b62d50610865c3a0ad6467c968fa4c15b"
+          }
+        },
+        {
+          "client_id": "447959955803-mth2fch4v024kqgto4k092kqhseq69a3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDqQu5JShyfFQ2LAna-eLM7vjXEDBTl-5s"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447959955803-mth2fch4v024kqgto4k092kqhseq69a3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

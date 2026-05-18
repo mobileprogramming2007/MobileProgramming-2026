@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobileprogramminglabs.model.datasource.local.mapper.toEditProfileData
-import com.example.mobileprogramminglabs.model.datasource.local.mapper.toUserEntity
-import com.example.mobileprogramminglabs.model.repository.user.UserRepository
-import com.example.mobileprogramminglabs.presentation.ui.screens.profile.util.EditProfileData
+import com.example.mobileprogramminglabs.model.mapper.toEditProfileData
+import com.example.mobileprogramminglabs.model.mapper.toUserEntity
+import com.example.mobileprogramminglabs.domain.repository.UserRepository
+import com.example.mobileprogramminglabs.domain.data.EditProfileData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

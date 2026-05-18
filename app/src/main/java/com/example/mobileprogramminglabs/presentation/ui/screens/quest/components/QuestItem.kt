@@ -29,7 +29,7 @@ import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.Thistle
-import com.example.mobileprogramminglabs.presentation.ui.screens.quest.util.QuestData
+import com.example.mobileprogramminglabs.domain.data.QuestData
 
 @Composable
 fun QuestItem(
@@ -89,7 +89,7 @@ fun QuestItem(
 private fun QuestItemPreview() {
     QuestItem(
         quest = QuestData(
-            id = 1,
+            id = "1",
             title = "Study Kotlin",
             xp = 20,
             isCompleted = false

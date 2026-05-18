@@ -2,63 +2,83 @@ package com.example.mobileprogramminglabs.presentation.view_model.quest.quest
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobileprogramminglabs.presentation.ui.screens.quest.util.QuestData
+import com.example.mobileprogramminglabs.domain.data.QuestData
+import com.example.mobileprogramminglabs.domain.repository.QuestRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuestViewModel @Inject constructor() : ViewModel() {
+class QuestViewModel @Inject constructor(
+    private val questRepository: QuestRepository
+) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<QuestUiState>(QuestUiState.Init)
+    private val _uiState = MutableStateFlow<QuestUiState>(QuestUiState.Loading)
     val uiState: StateFlow<QuestUiState> = _uiState.asStateFlow()
 
-    private val _navigationEvent = Channel<QuestNavigationEvent>(Channel.BUFFERED)
-    val navigationEvent = _navigationEvent.receiveAsFlow()
-
-    private val _quests = MutableStateFlow(
-        listOf(
-            QuestData(1, "Study Kotlin", 20, false),
-            QuestData(2, "Workout", 15, true),
-            QuestData(3, "Drink Water", 10, false),
-            QuestData(4, "Read 10 Pages", 25, false)
-        )
-    )
+    private val _quests = MutableStateFlow<List<QuestData>>(emptyList())
     val quests: StateFlow<List<QuestData>> = _quests.asStateFlow()
 
-    fun toggleQuest(questId: Int, isChecked: Boolean) {
+    fun loadQuests() {
         viewModelScope.launch {
             _uiState.value = QuestUiState.Loading
 
-            _quests.value = _quests.value.map { currentQuest ->
-                if (currentQuest.id == questId) {
-                    currentQuest.copy(isCompleted = isChecked)
-                } else {
-                    currentQuest
-                }
+            try {
+                val questList = questRepository.getQuests()
+                _quests.value = questList
+                _uiState.value = QuestUiState.Success
+            } catch (e: Exception) {
+                _uiState.value = QuestUiState.Error(
+                    e.message ?: "Failed to load quests."
+                )
             }
-
-            _uiState.value = QuestUiState.Success
         }
     }
 
-    fun deleteQuest(questId: Int) {
+    fun toggleQuest(questId: String, isCompleted: Boolean) {
         viewModelScope.launch {
-            _uiState.value = QuestUiState.Loading
+            try {
+                questRepository.toggleQuest(questId, isCompleted)
 
-            _quests.value = _quests.value.filterNot { it.id == questId }
+                _quests.value = _quests.value.map { quest ->
+                    if (quest.id == questId) {
+                        quest.copy(isCompleted = isCompleted)
+                    } else {
+                        quest
+                    }
+                }
 
-            _uiState.value = QuestUiState.Success
+                _uiState.value = QuestUiState.Success
+            } catch (e: Exception) {
+                _uiState.value = QuestUiState.Error(
+                    e.message ?: "Failed to update quest."
+                )
+            }
         }
     }
 
+    fun deleteQuest(questId: String) {
+        viewModelScope.launch {
+            try {
+                questRepository.deleteQuest(questId)
+
+                _quests.value = _quests.value.filter { quest ->
+                    quest.id != questId
+                }
+
+                _uiState.value = QuestUiState.Success
+            } catch (e: Exception) {
+                _uiState.value = QuestUiState.Error(
+                    e.message ?: "Failed to delete quest."
+                )
+            }
+        }
+    }
 
     fun resetUiState() {
-        _uiState.value = QuestUiState.Init
+        _uiState.value = QuestUiState.Success
     }
 }

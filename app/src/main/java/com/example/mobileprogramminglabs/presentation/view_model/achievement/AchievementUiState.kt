@@ -1,6 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.view_model.achievement
 
-import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.util.AchievementData
+import com.example.mobileprogramminglabs.domain.data.AchievementData
 
 sealed interface AchievementUiState {
     data object Init : AchievementUiState

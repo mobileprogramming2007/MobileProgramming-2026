@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
-import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
+import com.example.mobileprogramminglabs.domain.data.ScreenShortcutData
 
 @Composable
 fun ShortcutCard(

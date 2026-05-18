@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
+import com.example.mobileprogramminglabs.domain.data.InfoRowData
 
 @Composable
 fun InfoSection(

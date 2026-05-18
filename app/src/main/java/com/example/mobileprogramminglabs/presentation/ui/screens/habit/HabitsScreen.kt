@@ -37,7 +37,7 @@ import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.ui.screens.habit.components.HabitItem
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
-import com.example.mobileprogramminglabs.presentation.ui.screens.habit.util.HabitModel
+import com.example.mobileprogramminglabs.domain.data.HabitModel
 import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.view_model.habit.HabitNavigationEvent
 import com.example.mobileprogramminglabs.presentation.view_model.habit.HabitUiState

@@ -19,7 +19,7 @@ import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.component.AchievementItem
-import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.util.AchievementData
+import com.example.mobileprogramminglabs.domain.data.AchievementData
 import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.view_model.achievement.AchievementNavigationEvent

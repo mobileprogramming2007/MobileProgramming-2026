@@ -28,7 +28,7 @@ import com.example.mobileprogramminglabs.presentation.theme.DustyOliveLight
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 import com.example.mobileprogramminglabs.presentation.theme.Thistle
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
-import com.example.mobileprogramminglabs.presentation.ui.screens.motivation.util.MotivationCardModel
+import com.example.mobileprogramminglabs.domain.data.MotivationCardModel
 
 
 @Composable

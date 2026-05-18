@@ -1,6 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.view_model.home
 
-import com.example.mobileprogramminglabs.presentation.ui.util.ScreenShortcutData
+import com.example.mobileprogramminglabs.domain.data.ScreenShortcutData
 
 sealed interface HomeShortcutUiState {
     data object Init : HomeShortcutUiState
