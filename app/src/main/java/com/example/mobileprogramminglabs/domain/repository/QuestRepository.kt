@@ -13,4 +13,6 @@ interface QuestRepository {
     )
     suspend fun toggleQuest(questId: String, isCompleted: Boolean)
     suspend fun deleteQuest(questId: String)
+
+    suspend fun exportQuests(quests: List<QuestData>): Result<String>
 }

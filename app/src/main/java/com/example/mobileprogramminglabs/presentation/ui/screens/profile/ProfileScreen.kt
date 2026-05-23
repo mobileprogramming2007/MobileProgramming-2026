@@ -38,6 +38,7 @@ import com.example.mobileprogramminglabs.domain.data.InfoRowData
 import com.example.mobileprogramminglabs.presentation.view_model.profile.ProfileNavigationEvent
 import com.example.mobileprogramminglabs.presentation.view_model.profile.ProfileUiState
 import com.example.mobileprogramminglabs.presentation.view_model.profile.ProfileViewModel
+import androidx.compose.material3.CardDefaults
 
 @Composable
 fun ProfileScreen(
@@ -103,12 +104,13 @@ private fun ProfileScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(dimensionResource(R.dimen.padding_medium)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Title(
             title = stringResource(R.string.profile),
-            color = DeepTeal
+            color = MaterialTheme.colorScheme.primary
         )
         ProfileSection(
             name = name,
@@ -129,14 +131,17 @@ private fun ProfileScreen(
             Card(
                 modifier = Modifier
                     .weight(1f)
-                    .clickable(onClick = onEditClick)
+                    .clickable(onClick = onEditClick),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             ) {
                 InfoRow(
                     title = "Edit Profile",
                     imageVector = Icons.Default.Edit,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(DeepTeal)
+                        //.background(DeepTeal)
                         .padding(dimensionResource(R.dimen.padding_medium))
                 )
             }
@@ -144,14 +149,16 @@ private fun ProfileScreen(
             Card(
                 modifier = Modifier
                     .weight(1f)
-                    .clickable(onClick = onDeleteClick)
+                    .clickable(onClick = onDeleteClick),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             ) {
                 InfoRow(
                     title = "Delete Profile",
                     imageVector = Icons.Default.Delete,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(DeepTeal)
                         .padding(dimensionResource(R.dimen.padding_medium))
                 )
             }
@@ -160,14 +167,17 @@ private fun ProfileScreen(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(onClick = onAchievementClick)
+                .clickable(onClick = onAchievementClick),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primary
+            )
         ) {
             InfoRow(
                 title = "Achievements",
                 imageVector = Icons.Default.CheckCircle,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(DeepTeal)
+                    //.background(DeepTeal)
                     .padding(dimensionResource(R.dimen.padding_medium))
             )
         }

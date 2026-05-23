@@ -2,6 +2,7 @@ package com.example.mobileprogramminglabs.presentation.ui.screens.quest
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -10,9 +11,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -47,9 +53,30 @@ fun QuestScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val quests by viewModel.quests.collectAsStateWithLifecycle()
 
+    val exportMessage by viewModel.exportMessage.collectAsStateWithLifecycle()
+    val exportError by viewModel.exportError.collectAsStateWithLifecycle()
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         viewModel.loadQuests()
     }
+
+    LaunchedEffect(exportMessage, exportError) {
+        when {
+            exportMessage != null -> {
+                snackbarHostState.showSnackbar(exportMessage!!)
+                viewModel.clearExportState()
+            }
+
+            exportError != null -> {
+                snackbarHostState.showSnackbar("Export failed: $exportError")
+                viewModel.clearExportState()
+            }
+        }
+    }
+
 
     when (val state = uiState) {
         QuestUiState.Loading -> {
@@ -72,7 +99,12 @@ fun QuestScreen(
                 onDeleteClick = { questId ->
                     viewModel.deleteQuest(questId)
                 },
-                onAddQuestClick = onAddQuestClick
+                onAddQuestClick = onAddQuestClick,
+                onExportClick = {
+                    viewModel.exportQuests()
+                },
+                snackbarHostState = snackbarHostState
+
             )
         }
     }
@@ -84,57 +116,87 @@ private fun QuestScreen(
     onCheckedChange: (String, Boolean) -> Unit,
     onDeleteClick: (String) -> Unit,
     onAddQuestClick: () -> Unit,
+    onExportClick: () -> Unit,
+    snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_medium))
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.height_xmedium))
-        ) {
-            item {
-                Title(
-                    title = stringResource(R.string.quests),
-                    color = DeepTeal
-                )
-            }
-            item {
-                Spacer(
-                    modifier = Modifier.height(
-                        dimensionResource(R.dimen.padding_medium)
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
+        },
+        containerColor = MaterialTheme.colorScheme.background
+    ) { paddingValues ->
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(dimensionResource(R.dimen.padding_medium))
+        )
+        {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.height_xmedium))
+            ) {
+                item {
+                    Title(
+                        title = stringResource(R.string.quests),
+                        color = DeepTeal
                     )
-                )
+                }
+                item {
+                    Spacer(
+                        modifier = Modifier.height(
+                            dimensionResource(R.dimen.padding_medium)
+                        )
+                    )
+                }
+                items(
+                    items = quests,
+                    key = { quest -> quest.id }
+                ) { quest ->
+                    QuestItem(
+                        quest = quest,
+                        modifier = Modifier.animateItem(),
+                        onCheckedChange = { isChecked ->
+                            onCheckedChange(quest.id, isChecked)
+                        },
+                        onDeleteClick = {
+                            onDeleteClick(quest.id)
+                        }
+                    )
+                }
             }
-            items(
-                items = quests,
-                key = { quest -> quest.id }
-            ) { quest ->
-                QuestItem(
-                    quest = quest,
-                    onCheckedChange = { isChecked ->
-                        onCheckedChange(quest.id, isChecked)
-                    },
-                    onDeleteClick = {
-                        onDeleteClick(quest.id)
-                    }
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(dimensionResource(R.dimen.padding_medium)),
+                verticalArrangement = Arrangement.spacedBy(
+                    dimensionResource(R.dimen.padding_small)
                 )
+            ) {
+                FloatingActionButton(
+                    onClick = onExportClick,
+                    containerColor = MaterialTheme.colorScheme.secondary
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Create,
+                        contentDescription = "Export quests",
+                        tint = MaterialTheme.colorScheme.onSecondary
+                    )
+                }
+
+                FloatingActionButton(
+                    onClick = onAddQuestClick,
+                    containerColor = MaterialTheme.colorScheme.primary
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.add_quest),
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
             }
-        }
-        FloatingActionButton(
-            onClick = onAddQuestClick,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(dimensionResource(R.dimen.padding_medium)),
-            containerColor = DeepTeal
-        ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = stringResource(R.string.add_quest),
-                tint = AliceBlue
-            )
+
         }
     }
 }
@@ -155,6 +217,8 @@ fun QuestScreenPreview() {
             )
         }
 
+        val snackbarHostState = remember { SnackbarHostState() }
+
         QuestScreen(
             quests = quests,
             onCheckedChange = { questId, isChecked ->
@@ -170,6 +234,8 @@ fun QuestScreenPreview() {
                 quests = quests.filter { it.id != questId }
             },
             onAddQuestClick = {  },
+            onExportClick = {},
+            snackbarHostState = snackbarHostState
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mobileprogramminglabs.model.di
 
+import android.content.Context
 import com.example.mobileprogramminglabs.domain.repository.AuthRepository
 import com.example.mobileprogramminglabs.domain.repository.QuestRepository
 import com.example.mobileprogramminglabs.model.repository.auth.AuthRepositoryImpl
@@ -9,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -29,11 +31,14 @@ object FirebaseModule {
     @Provides
     @Singleton
     fun provideQuestRepository(
-        firestore: FirebaseFirestore
+        firestore: FirebaseFirestore,
+        @ApplicationContext context: Context
     ): QuestRepository {
-        return QuestRepositoryImpl(firestore)
+        return QuestRepositoryImpl(
+            firestore = firestore,
+            context = context
+        )
     }
-
     @Provides
     @Singleton
     fun provideAuthRepository(

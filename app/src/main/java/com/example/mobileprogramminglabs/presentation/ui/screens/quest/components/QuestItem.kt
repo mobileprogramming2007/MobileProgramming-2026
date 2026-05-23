@@ -1,5 +1,7 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.quest.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,11 +41,21 @@ fun QuestItem(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val backgroundColor by animateColorAsState(
+        targetValue = if (quest.isCompleted) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.primary
+        },
+        label = "QuestItemBackgroundColor"
+    )
+
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .animateContentSize()
             .clip(RoundedCornerShape(dimensionResource(R.dimen.size_small)))
-            .background(DeepTeal)
+            .background(backgroundColor)
             .padding(dimensionResource(R.dimen.padding_medium)),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -54,9 +67,9 @@ fun QuestItem(
                 checked = quest.isCompleted,
                 onCheckedChange = onCheckedChange,
                 colors = CheckboxDefaults.colors(
-                    checkedColor = Thistle,
-                    uncheckedColor = Thistle,
-                    checkmarkColor = Color.White
+                    checkedColor = MaterialTheme.colorScheme.secondaryContainer,
+                    uncheckedColor = MaterialTheme.colorScheme.secondaryContainer,
+                    checkmarkColor = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             )
             Spacer(modifier = Modifier.width(dimensionResource(R.dimen.width_xmedium)))
