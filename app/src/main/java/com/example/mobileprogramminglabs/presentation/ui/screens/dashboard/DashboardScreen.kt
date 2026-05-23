@@ -22,7 +22,7 @@ import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
 import com.example.mobileprogramminglabs.presentation.ui.screens.dashboard.components.HorizontalInfoSection
-import com.example.mobileprogramminglabs.presentation.ui.util.InfoRowData
+import com.example.mobileprogramminglabs.domain.data.InfoRowData
 
 @Composable
 fun DashboardScreen() {

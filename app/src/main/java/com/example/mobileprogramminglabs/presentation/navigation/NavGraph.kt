@@ -38,6 +38,7 @@ fun NavGraph(
         composable(route = Screen.Register.route) {
             RegistrationScreen(
                 viewModel = hiltViewModel(),
+                loginViewModel = hiltViewModel(),
                 onNavigate = {
                     navController.navigate(Screen.Login.route) {
                         popUpTo(Screen.Register.route) { inclusive = true }

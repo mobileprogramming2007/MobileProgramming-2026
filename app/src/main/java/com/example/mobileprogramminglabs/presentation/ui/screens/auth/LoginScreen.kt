@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,6 +53,7 @@ fun LoginScreen(
 
     val emailError = AuthValidators.validateEmail(email)
     val passwordError = AuthValidators.validatePassword(password)
+    val context = LocalContext.current
 
     val isLoginEnabled =
         emailError == null &&
@@ -93,7 +95,7 @@ fun LoginScreen(
                 onPasswordVisibilityChange = { passwordVisible = !passwordVisible },
                 onLoginClick = { viewModel.onLoginClick(email, password) },
                 onRegisterClick = onRegisterClick,
-                onGoogleClick = { }
+                onGoogleClick = {viewModel.onGoogleLoginClick(context)}
             )
         }
     }

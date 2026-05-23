@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.AliceBlue
@@ -32,7 +34,7 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.quest.component
 import com.example.mobileprogramminglabs.presentation.ui.components.Title
 import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
-import com.example.mobileprogramminglabs.presentation.ui.screens.quest.util.QuestData
+import com.example.mobileprogramminglabs.domain.data.QuestData
 import com.example.mobileprogramminglabs.presentation.view_model.quest.quest.QuestNavigationEvent
 import com.example.mobileprogramminglabs.presentation.view_model.quest.quest.QuestUiState
 import com.example.mobileprogramminglabs.presentation.view_model.quest.quest.QuestViewModel
@@ -45,13 +47,8 @@ fun QuestScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val quests by viewModel.quests.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.navigationEvent.collect { event ->
-            when (event) {
-                QuestNavigationEvent.Navigate -> Unit
-                QuestNavigationEvent.NavigateBack -> Unit
-            }
-        }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.loadQuests()
     }
 
     when (val state = uiState) {
@@ -62,7 +59,7 @@ fun QuestScreen(
         is QuestUiState.Error -> {
             ErrorScreen(
                 message = state.message,
-                onRetryClick = { viewModel.resetUiState() }
+                onRetryClick = { viewModel.loadQuests() }
             )
         }
 
@@ -84,8 +81,8 @@ fun QuestScreen(
 @Composable
 private fun QuestScreen(
     quests: List<QuestData>,
-    onCheckedChange: (Int, Boolean) -> Unit,
-    onDeleteClick: (Int) -> Unit,
+    onCheckedChange: (String, Boolean) -> Unit,
+    onDeleteClick: (String) -> Unit,
     onAddQuestClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -149,22 +146,11 @@ fun QuestScreenPreview() {
         var quests by remember {
             mutableStateOf(
                 listOf(
-                    QuestData(1, "Study Kotlin", 20, false),
-                    QuestData(2, "Workout", 15, true),
-                    QuestData(3, "Drink Water", 10, false),
-                    QuestData(4, "Read 10 Pages", 25, false),
-                    QuestData(5, "Study Kotlin", 20, false),
-                    QuestData(6, "Workout", 15, true),
-                    QuestData(7, "Drink Water", 10, false),
-                    QuestData(8, "Read 10 Pages", 25, false),
-                    QuestData(9, "Study Kotlin", 20, false),
-                    QuestData(10, "Workout", 15, true),
-                    QuestData(11, "Drink Water", 10, false),
-                    QuestData(12, "Read 10 Pages", 25, false),
-                    QuestData(13, "Study Kotlin", 20, false),
-                    QuestData(14, "Workout", 15, true),
-                    QuestData(15, "Drink Water", 10, false),
-                    QuestData(16, "Read 10 Pages", 25, false)
+                    QuestData("1", "Study Kotlin", "20", 12,false),
+                    QuestData("2", "Workout", "15", 10,true),
+                    QuestData("3", "Drink Water", "10", 11,false),
+                    QuestData("4", "Read 10 Pages", "25", 12,false),
+                    QuestData("5", "Study Kotlin", "20",213, false),
                 )
             )
         }

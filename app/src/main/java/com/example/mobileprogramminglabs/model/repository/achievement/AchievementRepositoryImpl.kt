@@ -1,5 +1,6 @@
 package com.example.mobileprogramminglabs.model.repository.achievement
 
+import com.example.mobileprogramminglabs.domain.repository.AchievementRepository
 import com.example.mobileprogramminglabs.model.datasource.local.dao.AchievementDao
 import com.example.mobileprogramminglabs.model.datasource.local.entity.AchievementEntity
 import com.example.mobileprogramminglabs.model.datasource.local.entity.UserAchievementEntity

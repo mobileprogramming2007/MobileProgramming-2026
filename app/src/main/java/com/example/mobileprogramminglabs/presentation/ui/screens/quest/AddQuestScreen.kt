@@ -1,5 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.quest
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
@@ -67,7 +69,7 @@ fun AddQuestScreen(
             selectedItem.isNotBlank() &&
             selectedDifficulty.isNotBlank()
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(viewModel) {
         viewModel.navigationEvent.collect { event ->
             when (event) {
                 AddQuestNavigationEvent.Navigate -> Unit
@@ -98,7 +100,9 @@ fun AddQuestScreen(
                 selectedItem = selectedItem,
                 selectedDifficulty = selectedDifficulty,
                 expanded = expanded,
-                onSaveButtonClick = {viewModel.addQuest(
+                onSaveButtonClick = {
+                    Log.d("FIREBASE_TEST", "Save button clicked")
+                    viewModel.addQuest(
                     questTitle = questTitle,
                     xpReward = xpReward,
                     category = selectedItem,
@@ -224,11 +228,21 @@ private fun AddQuestScreen(
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_large)))
-            RPGButton(
+            /*RPGButton(
                 title = "Save Quest",
                 enabled = enabled,
                 onButtonClick = onSaveButtonClick
-            )
+            )*/
+            Button(
+                onClick = {
+                    Log.d("FIREBASE_TEST", "Normal Button clicked")
+                    onSaveButtonClick()
+                },
+                enabled = enabled,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Save")
+            }
         }
     }
 }

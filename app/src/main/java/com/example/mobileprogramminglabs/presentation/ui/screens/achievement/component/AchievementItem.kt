@@ -1,6 +1,5 @@
 package com.example.mobileprogramminglabs.presentation.ui.screens.achievement.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,7 +23,7 @@ import androidx.compose.ui.Alignment
 import com.example.mobileprogramminglabs.R
 import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
 import com.example.mobileprogramminglabs.presentation.theme.RosyTaupe
-import com.example.mobileprogramminglabs.presentation.ui.screens.achievement.util.AchievementData
+import com.example.mobileprogramminglabs.domain.data.AchievementData
 
 @Composable
 fun AchievementItem(

@@ -1,6 +1,6 @@
 package com.example.mobileprogramminglabs.presentation.view_model.habit
 
-import com.example.mobileprogramminglabs.presentation.ui.screens.habit.util.HabitModel
+import com.example.mobileprogramminglabs.domain.data.HabitModel
 
 sealed interface HabitUiState {
     data object Init : HabitUiState

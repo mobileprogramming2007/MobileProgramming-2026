@@ -3,9 +3,9 @@ package com.example.mobileprogramminglabs.presentation.view_model.profile
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobileprogramminglabs.model.repository.user.SessionRepository
-import com.example.mobileprogramminglabs.model.datasource.local.mapper.toProfileData
-import com.example.mobileprogramminglabs.model.repository.user.UserRepository
+import com.example.mobileprogramminglabs.domain.repository.SessionRepository
+import com.example.mobileprogramminglabs.model.mapper.toProfileData
+import com.example.mobileprogramminglabs.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -5,11 +5,11 @@ import androidx.room.Room
 import com.example.mobileprogramminglabs.model.datasource.local.dao.AchievementDao
 import com.example.mobileprogramminglabs.model.datasource.local.dao.UserDao
 import com.example.mobileprogramminglabs.model.datasource.local.db.AppDatabase
-import com.example.mobileprogramminglabs.model.repository.achievement.AchievementRepository
+import com.example.mobileprogramminglabs.domain.repository.AchievementRepository
 import com.example.mobileprogramminglabs.model.repository.achievement.AchievementRepositoryImpl
-import com.example.mobileprogramminglabs.model.repository.user.SessionRepository
+import com.example.mobileprogramminglabs.domain.repository.SessionRepository
 import com.example.mobileprogramminglabs.model.repository.user.SessionRepositoryImpl
-import com.example.mobileprogramminglabs.model.repository.user.UserRepository
+import com.example.mobileprogramminglabs.domain.repository.UserRepository
 import com.example.mobileprogramminglabs.model.repository.user.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides

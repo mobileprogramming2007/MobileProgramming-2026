@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,10 +33,11 @@ import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components
 import com.example.mobileprogramminglabs.presentation.ui.components.GoogleIcon
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.PasswordTextField
 import com.example.mobileprogramminglabs.presentation.ui.screens.auth.components.SocialSignInButton
-import com.example.mobileprogramminglabs.presentation.ui.screens.auth.util.RegisterUserData
+import com.example.mobileprogramminglabs.domain.data.RegisterUserData
 import com.example.mobileprogramminglabs.presentation.ui.screens.error.ErrorScreen
 import com.example.mobileprogramminglabs.presentation.ui.screens.loading.LoadingScreen
 import com.example.mobileprogramminglabs.presentation.util.AuthValidators
+import com.example.mobileprogramminglabs.presentation.view_model.auth.login.LoginViewModel
 import com.example.mobileprogramminglabs.presentation.view_model.auth.registration.RegistrationNavigationEvent
 import com.example.mobileprogramminglabs.presentation.view_model.auth.registration.RegistrationUiState
 import com.example.mobileprogramminglabs.presentation.view_model.auth.registration.RegistrationViewModel
@@ -43,10 +45,12 @@ import com.example.mobileprogramminglabs.presentation.view_model.auth.registrati
 @Composable
 fun RegistrationScreen(
     viewModel: RegistrationViewModel,
+    loginViewModel: LoginViewModel,
     onNavigate: () -> Unit,
     onLoginClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
 
     var fullName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
@@ -63,6 +67,7 @@ fun RegistrationScreen(
         password = password,
         confirmPassword = confirmPassword
     )
+    val context = LocalContext.current
 
     val isRegisterEnabled =
         fullNameError == null &&
@@ -128,7 +133,7 @@ fun RegistrationScreen(
                         )
                     )
                 },
-                onGoogleClick = { },
+                onGoogleClick = { loginViewModel.onGoogleLoginClick(context)},
                 onLoginClick = onLoginClick,
             )
         }

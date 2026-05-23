@@ -1,11 +1,10 @@
 package com.example.mobileprogramminglabs.presentation.view_model.auth.registration
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobileprogramminglabs.model.repository.achievement.AchievementRepository
-import com.example.mobileprogramminglabs.model.repository.user.UserRepository
-import com.example.mobileprogramminglabs.presentation.ui.screens.auth.util.RegisterUserData
+import com.example.mobileprogramminglabs.domain.repository.AchievementRepository
+import com.example.mobileprogramminglabs.domain.repository.UserRepository
+import com.example.mobileprogramminglabs.domain.data.RegisterUserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

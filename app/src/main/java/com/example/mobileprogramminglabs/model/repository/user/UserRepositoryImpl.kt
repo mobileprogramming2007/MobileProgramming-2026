@@ -1,9 +1,10 @@
 package com.example.mobileprogramminglabs.model.repository.user
 
+import com.example.mobileprogramminglabs.domain.repository.UserRepository
 import com.example.mobileprogramminglabs.model.datasource.local.dao.UserDao
 import com.example.mobileprogramminglabs.model.datasource.local.entity.UserEntity
-import com.example.mobileprogramminglabs.model.datasource.local.mapper.toUserEntity
-import com.example.mobileprogramminglabs.presentation.ui.screens.auth.util.RegisterUserData
+import com.example.mobileprogramminglabs.model.mapper.toUserEntity
+import com.example.mobileprogramminglabs.domain.data.RegisterUserData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
