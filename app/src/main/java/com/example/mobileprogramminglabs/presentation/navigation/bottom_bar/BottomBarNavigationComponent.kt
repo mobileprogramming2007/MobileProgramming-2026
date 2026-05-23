@@ -43,13 +43,14 @@ fun BottomBarNavigationComponent(
             topStart = dimensionResource(id = R.dimen.size_small),
             topEnd = dimensionResource(id = R.dimen.size_small)
         ),
+        color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(
             width = dimensionResource(id = R.dimen.width_xxssmall),
-            color = AliceBlueLight
+            color = MaterialTheme.colorScheme.outline
         )
     ) {
         NavigationBar(
-            containerColor = Color.Transparent
+            containerColor = MaterialTheme.colorScheme.surface
         ) {
             items.forEachIndexed { index, item ->
                 val selected = selectedItemIndex == index
@@ -66,7 +67,6 @@ fun BottomBarNavigationComponent(
                             Text(
                                 text = stringResource(id = item.titleId),
                                 style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = if (selected) Blue else DustyOliveLight,
                                     fontSize = 12.sp,
                                     fontWeight = if (selected) FontWeight.W400 else FontWeight.W300
                                 )
@@ -77,15 +77,16 @@ fun BottomBarNavigationComponent(
                         Icon(
                             painter = painterResource(id = item.iconRes),
                             contentDescription = stringResource(id = item.titleId),
-                            tint = if (selected) Blue else DustyOliveLight
                         )
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = DustyOliveLight,
-                        unselectedIconColor = DustyOliveLight,
-                        selectedTextColor = if (selected) DustyOliveLight else Blue,
-                        unselectedTextColor = DustyOliveLight,
-                        indicatorColor = Color.Transparent
+                        selectedIconColor = MaterialTheme.colorScheme.primary,
+                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+
+                        selectedTextColor = MaterialTheme.colorScheme.primary,
+                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+
+                        indicatorColor = MaterialTheme.colorScheme.secondaryContainer
                     )
                 )
             }

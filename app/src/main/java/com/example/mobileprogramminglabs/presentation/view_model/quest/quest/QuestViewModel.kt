@@ -22,6 +22,13 @@ class QuestViewModel @Inject constructor(
     private val _quests = MutableStateFlow<List<QuestData>>(emptyList())
     val quests: StateFlow<List<QuestData>> = _quests.asStateFlow()
 
+    private val _exportMessage = MutableStateFlow<String?>(null)
+    val exportMessage = _exportMessage.asStateFlow()
+
+    private val _exportError = MutableStateFlow<String?>(null)
+    val exportError = _exportError.asStateFlow()
+
+
     fun loadQuests() {
         viewModelScope.launch {
             _uiState.value = QuestUiState.Loading
@@ -81,4 +88,24 @@ class QuestViewModel @Inject constructor(
     fun resetUiState() {
         _uiState.value = QuestUiState.Success
     }
+
+    fun exportQuests() {
+        viewModelScope.launch {
+            val result = questRepository.exportQuests(quests.value)
+
+            result
+                .onSuccess {
+                    _exportMessage.value = "Quests exported to Downloads folder"
+                }
+                .onFailure { error ->
+                    _exportError.value = error.message ?: "Export failed"
+                }
+        }
+    }
+
+    fun clearExportState() {
+        _exportMessage.value = null
+        _exportError.value = null
+    }
+
 }

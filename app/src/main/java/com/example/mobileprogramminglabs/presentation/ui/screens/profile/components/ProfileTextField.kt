@@ -42,13 +42,15 @@ fun ProfileTextField(
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             shape = RoundedCornerShape(dimensionResource(R.dimen.size_small)),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = DeepTealDark,
-                unfocusedBorderColor = RosyTaupeBeige,
-                focusedLabelColor = DeepTealDark,
-                cursorColor = DeepTealDark,
-                errorBorderColor = Color.Red,
-                errorLabelColor = Color.Red,
-                errorCursorColor = Color.Red
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                focusedLabelColor = MaterialTheme.colorScheme.primary,
+                unfocusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                cursorColor = MaterialTheme.colorScheme.primary,
+
+                errorBorderColor = MaterialTheme.colorScheme.error,
+                errorLabelColor = MaterialTheme.colorScheme.error,
+                errorCursorColor = MaterialTheme.colorScheme.error
             )
         )
 
@@ -56,7 +58,7 @@ fun ProfileTextField(
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.height_xsmall)))
             Text(
                 text = errorMessage,
-                color = Color.Red,
+                color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.bodySmall
             )
         }

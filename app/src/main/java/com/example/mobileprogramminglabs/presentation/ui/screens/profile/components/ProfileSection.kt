@@ -23,8 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mobileprogramminglabs.R
-import com.example.mobileprogramminglabs.presentation.theme.DeepTeal
-import com.example.mobileprogramminglabs.presentation.theme.Thistle
 
 @Composable
 fun ProfileSection(
@@ -41,7 +39,7 @@ fun ProfileSection(
             modifier = Modifier
                 .size(dimensionResource(R.dimen.avatar_large))
                 .clip(CircleShape)
-                .background(Thistle),
+                .background(MaterialTheme.colorScheme.secondaryContainer),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -54,19 +52,19 @@ fun ProfileSection(
         Text(
             text = "$name Player",
             style = MaterialTheme.typography.titleLarge,
-            color = DeepTeal,
+            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = "Level $levelNo Adventurer",
             style = MaterialTheme.typography.bodyLarge,
-            color = DeepTeal,
+            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = levelDescription,
             style = MaterialTheme.typography.bodyMedium,
-            color = DeepTeal,
+            color = MaterialTheme.colorScheme.onBackground,
             fontStyle = FontStyle.Italic
         )
         Spacer(modifier = Modifier.height(24.dp))
